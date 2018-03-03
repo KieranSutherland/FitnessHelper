@@ -21,7 +21,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <NaviBar />
-        <Login />
+        <Register />
       </div>
     );
 

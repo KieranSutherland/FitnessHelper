@@ -79,8 +79,6 @@ export default class Register extends Component {
           <h1>Sign up</h1>
           <br />
 
-
-
           <div className='inputLine'>
             <h4>Enter Username</h4>
             <FormControl

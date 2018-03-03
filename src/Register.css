@@ -33,12 +33,12 @@ h4 {
 }
 
 .submitButton {
+  width: 355px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
-  width: 200px;
   margin-right: 20px;
   background-color: #00C853;
   transition: all 0.2s ease 0s;

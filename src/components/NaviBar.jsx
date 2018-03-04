@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import { firebaseApp } from '../firebase';
 import './NaviBar.css';
 
 export default class NaviBar extends Component {
@@ -38,7 +39,11 @@ export default class NaviBar extends Component {
                   <MenuItem eventKey={3.2}>Contact us</MenuItem>
                   <MenuItem eventKey={3.3}>About us</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4}>Sign out</MenuItem>
+                  <MenuItem
+                    className='signOut'
+                    eventKey={3.4}
+                    onClick={() => firebaseApp.auth().signOut()}>
+                    Sign out</MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

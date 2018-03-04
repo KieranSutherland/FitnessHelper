@@ -1,6 +1,17 @@
+
 .container {
   width: 400px;
 }
+
+.buttonChoice {
+  font: Gotham-medium;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
 
 .inputLine {
   text-align: left;
@@ -14,6 +25,7 @@
 
 h4 {
   color: #212121;
+  padding-left: 2px;
 }
 
 .submitButton {

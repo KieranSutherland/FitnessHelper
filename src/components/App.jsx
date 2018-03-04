@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import NaviBar from './NaviBar';
-import Register from './Register';
 import Login from './Login';
+import Home from './Home';
 
 export default class App extends Component {
   constructor(){
     super();
     this.state = {
-      info: []
+      info: [],
+      user: false
     }
   }
 
-  componentWillMount(){
-
-  }
-
   render() {
-
-    return (
-      <div className="App">
-        <NaviBar />
-        <Register />
-      </div>
-    );
+    if (this.state.user) return (
+      <div><NaviBar /> <Home /></div>);
+    else return (
+      <div><NaviBar /> <Login /></div>);
 
   }
 

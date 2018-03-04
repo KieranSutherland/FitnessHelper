@@ -4,10 +4,17 @@ import { firebaseApp } from './firebase';
 import { Router, Route, browserHistory } from 'react-router';
 
 import Home from './components/Home';
-import App from './components/App';
+import Diet from './components/Diet';
+import Exercise from './components/Exercise';
+
 import Login from './components/Login';
 import Register from './components/Register';
+
+
 import NaviBar from './components/NaviBar';
+import Account from './components/Account';
+import ContactUs from './components/ContactUs';
+import AboutUs from './components/AboutUs';
 
   firebaseApp.auth().onAuthStateChanged(user => {
     if(user) {
@@ -23,10 +30,15 @@ ReactDOM.render(
     <Router path="/" history={browserHistory}>
 
       <Route path="/home" component={Home} />
-      <Route path="/app" component={App} />
+      <Route path="/diet" component={Diet} />
+      <Route path="/exercise" component={Exercise} />
+
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/navibar" component={NaviBar} />
+
+      <Route path="/account" component={Account} />
+      <Route path="/contact_us" component={ContactUs} />
+      <Route path="/about_us" component={AboutUs} />
 
     </Router>
   , document.getElementById('root')

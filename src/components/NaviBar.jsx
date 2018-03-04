@@ -17,7 +17,7 @@ export default class NaviBar extends Component {
       return (
 
         <div>
-          <Navbar>
+          <Navbar fluid>
 
             <Navbar.Header>
               <Navbar.Brand>
@@ -28,20 +28,21 @@ export default class NaviBar extends Component {
 
             <Navbar.Collapse>
               <Nav>
-                <NavItem eventKey={1} href="#">
+                <NavItem eventKey={1}>
                   <Link className='link' to={'/diet'}>Diet</Link>
                 </NavItem>
-                <NavItem eventKey={2} href="#">
+                <NavItem eventKey={2}>
                   <Link className='link' to={'/exercise'}>Exercise</Link>
                 </NavItem>
-
+              </Nav>
+              <Nav pullRight>
                 <NavDropdown eventKey={3} title="Profile" id="nav-dropdown">
-                  <MenuItem eventKey={3.1}><Link className='link' to={'/account'}>Account</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Link className='link' to={'/contact_us'}>Contact us</Link></MenuItem>
-                  <MenuItem eventKey={3.3}><Link className='link' to={'/about_us'}>About us</Link></MenuItem>
+                  <MenuItem eventKey={3.1}><Link className='link dropdown' to={'/account'}>Account</Link></MenuItem>
+                  <MenuItem eventKey={3.2}><Link className='link dropdown' to={'/contact_us'}>Contact us</Link></MenuItem>
+                  <MenuItem eventKey={3.3}><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
                   <MenuItem divider />
                   <MenuItem
-                    className='signOut'
+                    className='link dropdown'
                     eventKey={3.4}
                     onClick={() => firebaseApp.auth().signOut()}>
                     Sign out</MenuItem>

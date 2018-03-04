@@ -1,13 +1,8 @@
-.header {
-  font-size: 19px;
-}
 
 .navbar {
   background-color: #f2f2f2;
   border-radius: 0 !important;
   -moz-border-radius: 0 !important;
-  margin: 0px;
-  border: 0px;
   border-bottom:2px solid #00C853;
   -webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
@@ -16,7 +11,30 @@
 
 .link:hover {
   text-decoration: none;
+  color: #00C853;
 }
 .link {
   color: #262626;
+  padding-left: 25px;
+  font-size: 20px;
+}
+
+.link.dropdown {
+  padding-left: 0px;
+}
+
+.header a {
+  font-size: 30px !important;
+  padding-left: 25px;
+  padding-right: 30px;
+}
+
+#nav-dropdown {
+  color: #000000;
+  padding-left: 25px;
+  font-size: 20px;
+}
+
+#nav-dropdown:hover {
+  color: #00C853;
 }

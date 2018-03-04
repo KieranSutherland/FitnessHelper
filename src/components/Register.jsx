@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router';
 import { firebaseApp } from '../firebase';
+import NaviBar from './NaviBar';
 import './RegisterLogin.css';
 
 export default class Register extends Component {
@@ -58,6 +59,8 @@ export default class Register extends Component {
     render() {
       return (
 
+        <div>
+          <NaviBar />
         <div className='container'>
 
           <h1>Sign up</h1>
@@ -137,6 +140,8 @@ export default class Register extends Component {
           </div>
 
         </div>
+
+      </div>
       )
     }
   }

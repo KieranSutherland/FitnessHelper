@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router';
 import { firebaseApp } from '../firebase';
+import NaviBar from './NaviBar';
 import './RegisterLogin.css';
 
 export default class Login extends Component {
@@ -30,6 +31,9 @@ export default class Login extends Component {
 
     render() {
       return (
+
+        <div>
+          <NaviBar />
 
         <div className='container'>
 
@@ -73,6 +77,8 @@ export default class Login extends Component {
               <strong>Error!</strong> {this.state.error.message}
             </Alert>
           </div>
+
+        </div>
 
         </div>
       )

@@ -11,7 +11,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 
-import NaviBar from './components/NaviBar';
 import Account from './components/Account';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';

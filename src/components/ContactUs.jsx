@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import { } from 'react-bootstrap';
 import { firebaseApp } from '../firebase';
 import NaviBar from './NaviBar';
 import './ContactUs.css';

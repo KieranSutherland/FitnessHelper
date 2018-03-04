@@ -8,6 +8,9 @@ export default class Diet extends Component {
   constructor(){
     super();
     this.state = {
+      weight: 150,
+      height: 186,
+      age: 21,
       progress: 60
     }
 

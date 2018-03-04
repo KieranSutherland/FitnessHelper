@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
+import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router';
 import { firebaseApp } from '../firebase';
 import NaviBar from './NaviBar';
@@ -12,6 +12,8 @@ export default class Register extends Component {
       email : '',
       password : '',
       fitnessChoice : '',
+      gender: 'male',
+      dateValue: '',
       weight : null,
       gainColor: 'white',
       loseColor: 'white',
@@ -86,10 +88,20 @@ export default class Register extends Component {
 
           <div className='inputLine'>
             <h4>Date of Birth</h4>
-
+            <FormControl
+              type="date"
+              placeholder="dd/mm/yyyy"
+              onChange={ e => this.setState({ date : e.target.value }) }
+            />
           </div>
 
-          <br /><br />
+          <div className='inputLine'>
+            <h4>Gender</h4>
+              <ToggleButtonGroup className='radio' type="radio" name="options" defaultValue={'male'}>
+                <ToggleButton value={'male'} onChange={e => this.setState({ gender : e.target.value })}>Male</ToggleButton>
+                <ToggleButton value={'female'} onChange={e => this.setState({ gender : e.target.value })}>Female</ToggleButton>
+              </ToggleButtonGroup>
+          </div>
 
           <div className='inputLine'>
             <h4>Weight</h4>
@@ -106,14 +118,14 @@ export default class Register extends Component {
               <Button
                 className='buttonChoice'
                 value='gain'
-                onClick={() => this.gainClicked.bind(this)}
+                onClick={this.gainClicked.bind(this)}
                 style={{backgroundColor:this.state.gainColor}}>
                 Gain muscle mass
               </Button>
               <Button
                 className='buttonChoice'
                 value='lose'
-                onClick={() => this.loseClicked.bind(this)}
+                onClick={this.loseClicked.bind(this)}
                 style={{backgroundColor:this.state.loseColor}}>
                 Lose weight & gain tone
               </Button>

@@ -13,8 +13,10 @@ export default class Register extends Component {
       password : '',
       fitnessChoice : '',
       gender: 'male',
-      dateValue: '',
+      dob: '',
+      height: '',
       weight : null,
+      calories: 0,
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',
@@ -51,11 +53,31 @@ export default class Register extends Component {
 
     submitClicked() {
       console.log(this.state);
-      let { email, password } = this.state;
-      firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(error => {
-        this.setState({error});
+      if(this.state.fitnessChoice === '') {
+        this.setState({error: {message: 'Please select a fitness goal'} })
         this.setState({alertStyle: 'visible'});
-      })
+      }
+      else {
+        let { email, password } = this.state;
+        firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+          this.setState({error});
+          this.setState({alertStyle: 'visible'});
+        });
+      }
+
+      firebaseApp.auth().onAuthStateChanged(user => {
+        if(user) { // If user has registered and been created
+          firebaseApp.database().ref('users/' + user.uid).set({
+            email: this.state.email,
+            fitnessChoice: this.state.fitnessChoice,
+            gender: this.state.gender,
+            dob: this.state.dob,
+            height: this.state.height,
+            weight: this.state.weight,
+            calories: this.state.calories
+          });
+        }
+      });
     }
 
     render() {
@@ -91,7 +113,7 @@ export default class Register extends Component {
             <FormControl
               type="date"
               placeholder="dd/mm/yyyy"
-              onChange={ e => this.setState({ date : e.target.value }) }
+              onChange={ e => this.setState({ dob : e.target.value }) }
             />
           </div>
 
@@ -101,6 +123,15 @@ export default class Register extends Component {
                 <ToggleButton value={'male'} onChange={e => this.setState({ gender : e.target.value })}>Male</ToggleButton>
                 <ToggleButton value={'female'} onChange={e => this.setState({ gender : e.target.value })}>Female</ToggleButton>
               </ToggleButtonGroup>
+          </div>
+
+          <div className='inputLine'>
+            <h4>Height</h4>
+            <FormControl
+              type="text"
+              placeholder="Heigh (cm)"
+              onChange={ e => this.setState({ height : e.target.value }) }
+            />
           </div>
 
           <div className='inputLine'>

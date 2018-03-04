@@ -5,7 +5,7 @@ const config = {
     authDomain: "fitnesshelper-6cb4c.firebaseapp.com",
     databaseURL: "https://fitnesshelper-6cb4c.firebaseio.com",
     projectId: "fitnesshelper-6cb4c",
-    storageBucket: "",
+    storageBucket: "fitnesshelper-6cb4c.appspot.com",
     messagingSenderId: "417227960245"
   };
 

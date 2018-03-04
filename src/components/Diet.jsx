@@ -5,10 +5,11 @@ import NaviBar from './NaviBar';
 import './Diet.css';
 
 export default class Diet extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+
     this.state = {
-      weight: 150,
+      weight: 185,
       height: 186,
       age: 21,
       progress: 60

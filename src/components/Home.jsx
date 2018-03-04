@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../firebase';
 import { Link } from 'react-router';
-import { Button} from 'react-bootstrap';
+import { Button, Jumbotron } from 'react-bootstrap';
 import NaviBar from './NaviBar';
 import './Home.css';
 
@@ -19,7 +19,12 @@ render() {
 
     <div>
       <NaviBar />
-      <div>Home</div>
+      <Jumbotron className='jumbo'>
+        <h1>Welcome to FitnessHelper!</h1>
+        <p>
+          FitnessHelper makes it easy to find the correct diet and exercise plan for your fitness goal.
+        </p>
+      </Jumbotron>
 
     </div>
 

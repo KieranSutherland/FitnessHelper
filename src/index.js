@@ -10,18 +10,17 @@ import Exercise from './components/Exercise';
 import Login from './components/Login';
 import Register from './components/Register';
 
-
 import Account from './components/Account';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
-
+import NaviBar from './components/NaviBar';
 
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
       console.log('user has signed in or up', user);
       browserHistory.push('/home');
       firebase.database().ref().child('users/' + user.uid).once('value').then(function(snapshot) {
-        console.log(snapshot.val().email);
+        console.log(snapshot.val());
       });
       }
       else {

@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router';
+import { Switch } from 'react-router-dom';
 import './App.css';
-import NaviBar from './NaviBar';
-import Login from './Login';
-import Home from './Home';
+
+
+
 
 export default class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      info: [],
-      user: false
-    }
-  }
+  <div>
 
-  render() {
-    if (this.state.user) return (
-      <div><NaviBar /> <Home /></div>);
-    else return (
-      <div><NaviBar /> <Login /></div>);
-
-  }
+</div>
 
 }

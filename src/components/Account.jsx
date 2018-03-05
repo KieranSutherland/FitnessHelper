@@ -27,13 +27,21 @@ export default class Account extends Component {
     }
 
     componentDidMount() {
-      const user = firebase.auth().currentUser;
-      if(user) {
-        console.log('Updating account info');
-        firebase.database().ref().child('users/' + user.uid).once('value').then(function(snapshot) {
-          this.setState({email: snapshot.val().email});
-        });
-        };
+
+      firebase.auth().onAuthStateChanged(user => {
+
+        if(user) {
+          console.log('Updating account info');
+          firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
+            let email = (snapshot.val() && snapshot.val().email);
+            this.setState({email});
+            console.log('test2', this.state);
+          });
+
+          }
+          console.log('test3', this.state);
+      });
+      console.log('test4', this.state);
     }
 
     gainClicked(e) {

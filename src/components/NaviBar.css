@@ -9,25 +9,26 @@
   box-shadow: 0 8px 6px -6px #999;
 }
 
+.link {
+  color: #262626;
+  padding: 25px 25px 25px 25px;
+  font-size: 20px;
+}
+
 .link:hover {
   text-decoration: none;
   color: #00C853;
 }
-.link {
-  color: #262626;
-  padding-left: 25px;
-  font-size: 20px;
-}
 
 .link.dropdown {
-  padding-left: 0px;
+  padding: 0 0 0 0;
 }
 
 .header a {
   font-size: 30px !important;
   padding-left: 25px;
   padding-right: 30px;
-  text-shadow: 0 0 1px #00C853;
+  /*text-shadow: 0 0 1px #00C853;*/
   font-weight: bold;
 }
 

@@ -15,19 +15,19 @@ export default class Account extends Component {
       gender: '',
       dob: '',
       height: '',
-      weight : null,
+      weight : '',
       calories: 0,
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',
       alertType : 'Success',
       alert: {
-        message: 'Changes have been saved successfully'
+        message: ''
       },
       passwordAlertStyle : 'hidden',
       passwordAlertType : 'Success',
       passwordAlert: {
-        message: 'Changes have been saved successfully'
+        message: ''
       }
     }
 
@@ -79,23 +79,31 @@ export default class Account extends Component {
     }
 
     submitClicked() {
-      firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
+      if(this.state.fitnessChoice === '' || this.state.dob === '' || //Check if any values have been removed
+      this.state.height === '' || this.state.weight === '' || this.state.calories === '') {
+        this.setState({alert: {message: 'Please enter all information'}, alertType: 'warning' })
+      }
+      else {
 
-        firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-          email: this.state.email,
-          fitnessChoice: this.state.fitnessChoice,
-          gender: this.state.gender,
-          dob: this.state.dob,
-          height: this.state.height,
-          weight: this.state.weight
-        });
-        this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
+        firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+            email: this.state.email,
+            fitnessChoice: this.state.fitnessChoice,
+            gender: this.state.gender,
+            dob: this.state.dob,
+            height: this.state.height,
+            weight: this.state.weight,
+            calories: this.state.calories
+          });
+          this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
 
-      }).catch(error => {
-        this.setState({alert: error, alertType: 'warning'});
+          }).catch(error => {
+            this.setState({alert: error, alertType: 'warning'});
+          })
 
-      })
+      }
       this.setState({alertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
+
     }
 
     passwordSubmitClicked() {
@@ -211,7 +219,7 @@ export default class Account extends Component {
             <h4>Password</h4>
             <FormControl
               type="password"
-              placeholder="Password (between 4-20 letters & numbers)"
+              placeholder="Password (6 or more letters & numbers)"
               onChange={ e => this.setState({ password1 : e.target.value }) }
             />
           </div>

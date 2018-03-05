@@ -15,7 +15,7 @@ export default class Register extends Component {
       gender: 'male',
       dob: '',
       height: '',
-      weight : 0,
+      weight : '',
       calories: 0,
       gainColor: 'white',
       loseColor: 'white',
@@ -52,7 +52,7 @@ export default class Register extends Component {
     }
 
     submitClicked() { // Check all information has been entered
-      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === 0) {
+      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === '') {
         this.setState({error: {message: 'Please enter all information'} })
         this.setState({alertStyle: 'visible'});
       }
@@ -64,7 +64,7 @@ export default class Register extends Component {
         });
 
         firebase.auth().onAuthStateChanged(user => {
-          if(user) { // If user has registered and been created
+          if(user) { // Only activates if user has registered and been created
             firebase.database().ref('users/' + user.uid).set({
               email: this.state.email,
               fitnessChoice: this.state.fitnessChoice,
@@ -73,6 +73,11 @@ export default class Register extends Component {
               height: this.state.height,
               weight: this.state.weight,
               calories: this.state.calories
+            });
+            user.sendEmailVerification().then( () => {
+              // Email sent.
+            }).catch(error => {
+              console.log('Error sending email verification')
             });
           }
         });
@@ -89,7 +94,7 @@ export default class Register extends Component {
         <div className='container'>
 
           <h1>Sign up</h1>
-          <br />
+          <hr />
 
           <div className='inputLine'>
             <h4>Email</h4>
@@ -104,7 +109,7 @@ export default class Register extends Component {
             <h4>Password</h4>
             <FormControl
               type="password"
-              placeholder="Password (between 4-20 letters & numbers)"
+              placeholder="Password (6 or more letters & numbers)"
               onChange={ e => this.setState({ password : e.target.value }) }
             />
           </div>

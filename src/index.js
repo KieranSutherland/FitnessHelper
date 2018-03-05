@@ -31,7 +31,6 @@ import NaviBar from './components/NaviBar';
 
 ReactDOM.render(
     <Router path="/" history={browserHistory}>
-
       <Route path="/home" component={Home} />
       <Route path="/diet" component={Diet} />
       <Route path="/exercise" component={Exercise} />
@@ -44,5 +43,6 @@ ReactDOM.render(
       <Route path="/about_us" component={AboutUs} />
 
     </Router>
+
   , document.getElementById('root')
 )

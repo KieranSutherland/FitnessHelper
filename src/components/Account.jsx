@@ -11,17 +11,14 @@ export default class Account extends Component {
       email : '',
       password : '',
       fitnessChoice : '',
-      gender: 'male',
+      gender: '',
       dob: '',
       height: '',
       weight : null,
       calories: 0,
-      gainColor: 'white',
-      loseColor: 'white',
+      gainColor: '',
+      loseColor: '',
       alertStyle : 'hidden',
-      error: {
-        message: ''
-      }
     }
 
     }
@@ -31,17 +28,20 @@ export default class Account extends Component {
       firebase.auth().onAuthStateChanged(user => {
 
         if(user) {
-          console.log('Updating account info');
           firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
-            let email = (snapshot.val() && snapshot.val().email);
-            this.setState({email});
-            console.log('test2', this.state);
+            this.setState({ // Set values to current user's data
+              email: (snapshot.val() && snapshot.val().email),
+              fitnessChoice: (snapshot.val() && snapshot.val().fitnessChoice),
+              gender: (snapshot.val() && snapshot.val().gender),
+              dob: (snapshot.val() && snapshot.val().dob),
+              height: (snapshot.val() && snapshot.val().height),
+              weight: (snapshot.val() && snapshot.val().weight)
+            });
+            this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
           });
-
           }
-          console.log('test3', this.state);
+
       });
-      console.log('test4', this.state);
     }
 
     gainClicked(e) {
@@ -68,6 +68,18 @@ export default class Account extends Component {
         }
     }
 
+    submitClicked() {
+      firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+        email: this.state.email,
+        fitnessChoice: this.state.fitnessChoice,
+        gender: this.state.gender,
+        dob: this.state.dob,
+        height: this.state.height,
+        weight: this.state.weight
+      });
+      this.setState({alertStyle: 'visible'});
+    }
+
     render() {
       return (
         <div>
@@ -81,6 +93,7 @@ export default class Account extends Component {
             <h4>Email</h4>
             <FormControl
               type="text"
+              value={this.state.email}
               placeholder="john@example.com"
               onChange={ e => this.setState({ email : e.target.value }) }
             />
@@ -99,6 +112,7 @@ export default class Account extends Component {
             <h4>Date of Birth</h4>
             <FormControl
               type="date"
+              value={this.state.dob}
               placeholder="dd/mm/yyyy"
               onChange={ e => this.setState({ dob : e.target.value }) }
             />
@@ -106,25 +120,27 @@ export default class Account extends Component {
 
           <div className='inputLine'>
             <h4>Gender</h4>
-              <ToggleButtonGroup className='radio' type="radio" name="options" defaultValue={'male'}>
+              <ToggleButtonGroup className='radio' type="radio" name="options" value={this.state.gender}>
                 <ToggleButton value={'male'} onChange={e => this.setState({ gender : e.target.value })}>Male</ToggleButton>
                 <ToggleButton value={'female'} onChange={e => this.setState({ gender : e.target.value })}>Female</ToggleButton>
               </ToggleButtonGroup>
           </div>
 
           <div className='inputLine'>
-            <h4>Height</h4>
+            <h4>Height (cm)</h4>
             <FormControl
               type="text"
+              value={this.state.height}
               placeholder="Heigh (cm)"
               onChange={ e => this.setState({ height : e.target.value }) }
             />
           </div>
 
           <div className='inputLine'>
-            <h4>Weight</h4>
+            <h4>Weight (kg)</h4>
             <FormControl
               type="text"
+              value={this.state.weight}
               placeholder="Weight (kg)"
               onChange={ e => this.setState({ weight : e.target.value }) }
             />
@@ -158,6 +174,11 @@ export default class Account extends Component {
               >
               Save Changes
             </Button>
+          </div>
+          <div>
+            <Alert className='alert' bsStyle="success" style={{visibility:this.state.alertStyle}}>
+              <strong>Success!</strong> Changes have been saved
+            </Alert>
           </div>
         </div>
 

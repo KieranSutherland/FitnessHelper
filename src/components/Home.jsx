@@ -18,7 +18,7 @@ render() {
   return(
 
     <div>
-      
+      <NaviBar />
       <Jumbotron className='jumbo'>
         <h1>Welcome to <a>FitnessHelper</a></h1>
         <p>

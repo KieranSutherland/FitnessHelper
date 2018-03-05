@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { firebaseApp } from './firebase';
+import { firebase } from './firebase';
 import { Router, Route, browserHistory } from 'react-router';
 
 import Home from './components/Home';
@@ -16,11 +16,13 @@ import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 
 
-  firebaseApp.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => {
     if(user) {
       console.log('user has signed in or up', user);
       browserHistory.push('/home');
-      firebaseApp.database().ref().child('users/' + user.uid).once('value').then(function(snapshot) {console.log(snapshot.val())});
+      firebase.database().ref().child('users/' + user.uid).once('value').then(function(snapshot) {
+        console.log(snapshot.val().email);
+      });
       }
       else {
         console.log('user has signed out or still needs to sign in');

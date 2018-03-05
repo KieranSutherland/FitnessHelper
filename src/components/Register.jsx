@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router';
-import { firebaseApp } from '../firebase';
+import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './RegisterLogin.css';
 
@@ -51,33 +51,34 @@ export default class Register extends Component {
         }
     }
 
-    submitClicked() {
-      console.log(this.state);
-      if(this.state.fitnessChoice === '') {
-        this.setState({error: {message: 'Please select a fitness goal'} })
+    submitClicked() { // Check all information has been entered
+      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === null) {
+        this.setState({error: {message: 'Please enter all information'} })
         this.setState({alertStyle: 'visible'});
       }
-      else {
+      else { // Else continue with authentication of email and password
         let { email, password } = this.state;
-        firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
           this.setState({error});
           this.setState({alertStyle: 'visible'});
         });
+
+        firebase.auth().onAuthStateChanged(user => {
+          if(user) { // If user has registered and been created
+            firebase.database().ref('users/' + user.uid).set({
+              email: this.state.email,
+              fitnessChoice: this.state.fitnessChoice,
+              gender: this.state.gender,
+              dob: this.state.dob,
+              height: this.state.height,
+              weight: this.state.weight,
+              calories: this.state.calories
+            });
+          }
+        });
       }
 
-      firebaseApp.auth().onAuthStateChanged(user => {
-        if(user) { // If user has registered and been created
-          firebaseApp.database().ref('users/' + user.uid).set({
-            email: this.state.email,
-            fitnessChoice: this.state.fitnessChoice,
-            gender: this.state.gender,
-            dob: this.state.dob,
-            height: this.state.height,
-            weight: this.state.weight,
-            calories: this.state.calories
-          });
-        }
-      });
+
     }
 
     render() {

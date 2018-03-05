@@ -7,5 +7,9 @@
 
 .jumbo h1, p {
   padding-left: 50px;
-  visibility: 
+  visibility:
+}
+
+.jumbo h1 a {
+  color: #00C853;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { Link } from 'react-router';
-import { firebaseApp } from '../firebase';
+import { firebase } from '../firebase';
 import './NaviBar.css';
 
 export default class NaviBar extends Component {
@@ -44,7 +44,7 @@ export default class NaviBar extends Component {
                   <MenuItem
                     className='link dropdown'
                     eventKey={3.4}
-                    onClick={() => firebaseApp.auth().signOut()}>
+                    onClick={() => firebase.auth().signOut()}>
                     Sign out</MenuItem>
                 </NavDropdown>
               </Nav>

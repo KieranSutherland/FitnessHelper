@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router';
-import { firebaseApp } from '../firebase';
+import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './RegisterLogin.css';
 
@@ -20,9 +20,8 @@ export default class Login extends Component {
     }
 
     submitClicked() {
-      console.log(this.state);
       let { email, password } = this.state;
-      firebaseApp.auth().signInWithEmailAndPassword(email, password).catch(error => {
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
         console.log('error');
         this.setState({error});
         this.setState({alertStyle: 'visible'});

@@ -15,7 +15,7 @@ export default class Register extends Component {
       gender: 'male',
       dob: '',
       height: '',
-      weight : null,
+      weight : 0,
       calories: 0,
       gainColor: 'white',
       loseColor: 'white',
@@ -52,7 +52,7 @@ export default class Register extends Component {
     }
 
     submitClicked() { // Check all information has been entered
-      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === null) {
+      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === 0) {
         this.setState({error: {message: 'Please enter all information'} })
         this.setState({alertStyle: 'visible'});
       }

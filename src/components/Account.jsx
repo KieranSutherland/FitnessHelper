@@ -9,16 +9,26 @@ export default class Account extends Component {
     super();
     this.state = {
       email : '',
-      password : '',
+      password1 : '',
+      password2 : '',
       fitnessChoice : '',
       gender: '',
       dob: '',
       height: '',
       weight : null,
       calories: 0,
-      gainColor: '',
-      loseColor: '',
+      gainColor: 'white',
+      loseColor: 'white',
       alertStyle : 'hidden',
+      alertType : 'Success',
+      alert: {
+        message: 'Changes have been saved successfully'
+      },
+      passwordAlertStyle : 'hidden',
+      passwordAlertType : 'Success',
+      passwordAlert: {
+        message: 'Changes have been saved successfully'
+      }
     }
 
     }
@@ -69,22 +79,45 @@ export default class Account extends Component {
     }
 
     submitClicked() {
-      firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-        email: this.state.email,
-        fitnessChoice: this.state.fitnessChoice,
-        gender: this.state.gender,
-        dob: this.state.dob,
-        height: this.state.height,
-        weight: this.state.weight
-      });
-      this.setState({alertStyle: 'visible'});
+      firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
+
+        firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+          email: this.state.email,
+          fitnessChoice: this.state.fitnessChoice,
+          gender: this.state.gender,
+          dob: this.state.dob,
+          height: this.state.height,
+          weight: this.state.weight
+        });
+        this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
+
+      }).catch(error => {
+        this.setState({alert: error, alertType: 'warning'});
+
+      })
+      this.setState({alertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
+    }
+
+    passwordSubmitClicked() {
+      if(this.state.password1 !== this.state.password2) {
+        this.setState({passwordAlert: {message: 'Passwords do not match'}, passwordAlertType: 'warning'});
+      }
+      else {
+        firebase.auth().currentUser.updatePassword(this.state.password1).then(() => {
+          this.setState({passwordAlert: {message: 'Password has been successfully changed'}, passwordAlertType: 'success'});
+        }).catch(error => {
+          this.setState({passwordAlert: error, passwordAlertType: 'warning'});
+        });
+      }
+        this.setState({passwordAlertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
     }
 
     render() {
       return (
         <div>
           <NaviBar />
-          <div className='account-container'>
+
+          <div className='container'>
 
             <h1>Account</h1>
 
@@ -96,15 +129,6 @@ export default class Account extends Component {
               value={this.state.email}
               placeholder="john@example.com"
               onChange={ e => this.setState({ email : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Password</h4>
-            <FormControl
-              type="password"
-              placeholder="Password (between 4-20 letters & numbers)"
-              onChange={ e => this.setState({ password : e.target.value }) }
             />
           </div>
 
@@ -176,10 +200,44 @@ export default class Account extends Component {
             </Button>
           </div>
           <div>
-            <Alert className='alert' bsStyle="success" style={{visibility:this.state.alertStyle}}>
-              <strong>Success!</strong> Changes have been saved
+            <Alert className='alert' bsStyle={this.state.alertType} style={{visibility:this.state.alertStyle}}>
+              <strong>{this.state.alertType}!</strong> {this.state.alert.message}
             </Alert>
           </div>
+
+
+          <h3>Change password</h3>
+          <div className='inputLine'>
+            <h4>Password</h4>
+            <FormControl
+              type="password"
+              placeholder="Password (between 4-20 letters & numbers)"
+              onChange={ e => this.setState({ password1 : e.target.value }) }
+            />
+          </div>
+          <div className='inputLine'>
+            <h4>Re-enter password</h4>
+            <FormControl
+              type="password"
+              placeholder="Password"
+              onChange={ e => this.setState({ password2 : e.target.value }) }
+            />
+          </div>
+          <div className='inputLine'>
+            <br />
+            <Button
+              className='submitButton'
+              onClick={ () => this.passwordSubmitClicked() }
+              >
+              Change Password
+            </Button>
+          </div>
+          <div>
+            <Alert className='alert' bsStyle={this.state.passwordAlertType} style={{visibility:this.state.passwordAlertStyle}}>
+              <strong>{this.state.passwordAlertType}!</strong> {this.state.passwordAlert.message}
+            </Alert>
+          </div>
+
         </div>
 
       </div>

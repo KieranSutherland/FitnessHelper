@@ -9,12 +9,7 @@ export default class Diet extends Component {
     super(props);
 
     this.state = {
-      fitnessChoice: '',
-      gender: '',
-      weight: '',
-      height: '',
-      age: '',
-      calories: '',
+
       caloriesGoal: '',
       progress: 0,
       addCaloriesTextField: ''
@@ -23,7 +18,7 @@ export default class Diet extends Component {
     }
 
     componentDidMount() {
-
+      var newProgress = 0;
       firebase.auth().onAuthStateChanged(user => {
 
           if(user) {
@@ -36,9 +31,6 @@ export default class Diet extends Component {
               if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
               {calculatedAge--;}
 
-              /*var today = new Date();
-              var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-              var calculatedAge = ((date - (snapshot.val() && snapshot.val().dob)) / 365);*/
               this.setState({ // Set values to current user's data
                 fitnessChoice: (snapshot.val() && snapshot.val().fitnessChoice),
                 gender: (snapshot.val() && snapshot.val().gender),
@@ -62,18 +54,19 @@ export default class Diet extends Component {
               console.log(this.state);
 
               //Update progress bar with calories eaten for that day
-              this.setState({progress: Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)});
+              newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
+              this.setState({progress: newProgress});
 
+              //Make sure progress can't go past 100%
+              if(newProgress > 100) { //Local variable because progress state won't be updated until componentDidMount function is completed
+                this.setState({progress: 100})
+              }
             });
 
             }
 
         });
 
-        //Make sure progress can't go past 100%
-        if(this.state.progress > 100) {
-          this.setState({progress: 100})
-        }
       }
 
       addCalories() {

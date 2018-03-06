@@ -8,15 +8,8 @@ export default class Account extends Component {
   constructor(){
     super();
     this.state = {
-      email : '',
       password1 : '',
       password2 : '',
-      fitnessChoice : '',
-      gender: '',
-      dob: '',
-      height: '',
-      weight : '',
-      calories: 0,
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',
@@ -86,14 +79,13 @@ export default class Account extends Component {
       else {
 
         firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
-          firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
             email: this.state.email,
             fitnessChoice: this.state.fitnessChoice,
             gender: this.state.gender,
             dob: this.state.dob,
             height: this.state.height,
             weight: this.state.weight,
-            calories: this.state.calories
           });
           this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
 

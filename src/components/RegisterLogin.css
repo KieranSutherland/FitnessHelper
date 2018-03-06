@@ -1,6 +1,13 @@
 
 .container {
   width: 400px;
+  padding-bottom: 50px;
+  box-shadow: 0 0 20px #000;
+}
+
+.container:before {
+  background: transparent;
+  box-shadow: 0 0 20px #000;
 }
 
 .buttonChoice {

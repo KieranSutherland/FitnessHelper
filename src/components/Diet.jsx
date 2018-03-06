@@ -9,12 +9,10 @@ export default class Diet extends Component {
     super(props);
 
     this.state = {
-      email: '',
       fitnessChoice: '',
       gender: '',
       weight: '',
       height: '',
-      dob: '',
       age: '',
       calories: '',
       caloriesGoal: '',
@@ -42,10 +40,8 @@ export default class Diet extends Component {
               var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
               var calculatedAge = ((date - (snapshot.val() && snapshot.val().dob)) / 365);*/
               this.setState({ // Set values to current user's data
-                email: (snapshot.val() && snapshot.val().email),
                 fitnessChoice: (snapshot.val() && snapshot.val().fitnessChoice),
                 gender: (snapshot.val() && snapshot.val().gender),
-                dob: (snapshot.val() && snapshot.val().dob),
                 age: calculatedAge,
                 height: (snapshot.val() && snapshot.val().height),
                 weight: (snapshot.val() && snapshot.val().weight),
@@ -89,14 +85,8 @@ export default class Diet extends Component {
           this.updateProgressBar();
           //Update database
           if(firebase.auth()) {
-            firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-              calories: this.state.calories,
-              email: this.state.email,
-              fitnessChoice: this.state.fitnessChoice,
-              dob: this.state.dob,
-              gender: this.state.gender,
-              weight: this.state.weight,
-              height: this.state.height,
+            firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
+              calories: this.state.calories
             });
           }
 
@@ -122,11 +112,11 @@ export default class Diet extends Component {
 
           <h1>Diet</h1>
           <hr />
-          <h4>Progress for today's calorie intake</h4>
+          <h4>Progress for today's calorie intake:</h4>
           <ProgressBar className='progressBar' now={this.state.progress} label={`${this.state.progress}%`} />
 
           <div className='inputLine'>
-            <h4>Add calories to your calorie total for today</h4>
+            <h4>Add calories to your total for today</h4>
             <FormControl
               type="text"
               onChange={e => this.setState({addCaloriesTextField: e.target.value})}

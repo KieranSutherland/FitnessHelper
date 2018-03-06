@@ -16,7 +16,7 @@ export default class Diet extends Component {
       age: '',
       calories: '',
       caloriesGoal: '',
-      progress: '',
+      progress: 0,
       addCaloriesTextField: ''
     }
 
@@ -70,10 +70,9 @@ export default class Diet extends Component {
 
         });
 
-        //Check if progress bar is at 100%
-        if(this.state.progress >= 100) {
-          this.setState({progress: 'Congratulations! You have reached your daily calorie goal. 100'})
-          console.log('progress', this.state.progress);
+        //Make sure progress can't go past 100%
+        if(this.state.progress > 100) {
+          this.setState({progress: 100})
         }
       }
 
@@ -81,27 +80,24 @@ export default class Diet extends Component {
         //If text field is empty, no need to change states
         if(this.state.addCaloriesTextField != '') {
           //Update states
-          this.setState({calories: (parseInt(this.state.calories , 10 )) + (parseInt(this.state.addCaloriesTextField , 10 ))});
-          this.updateProgressBar();
+          //Need to delcare newCal state so that progressBar and database update instantly instead of next button click (same for newProgress)
+          var newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.addCaloriesTextField , 10 ))
+          var newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
+          this.setState({calories: newCal});
+          this.setState({progress: newProgress});
+          //Make sure progress can't go past 100%
+          if(newProgress > 100) {
+            this.setState({progress: 100})
+          }
           //Update database
           if(firebase.auth()) {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
-              calories: this.state.calories
+              calories: newCal
             });
           }
 
         }
 
-      }
-
-      updateProgressBar() {
-        this.setState({progress: Math.round((parseInt(this.state.calories , 10 ) / this.state.caloriesGoal) * 100)});
-        //Update progress
-        if(this.state.progress >= 100) {
-          this.setState({progress: 'Congratulations! You have reached your daily calorie goal. 100'})
-          console.log('progress', this.state.progress);
-        }
-        console.log('new calories', this.state.calories);
       }
 
     render() {
@@ -112,18 +108,20 @@ export default class Diet extends Component {
 
           <h1>Diet</h1>
           <hr />
-          <h4>Progress for today's calorie intake:</h4>
+          <h2>Progress for today's calorie intake:</h2>
+          <ul className='caloriesAndGoal'>
+          <li>Calories: {this.state.calories}</li>
+          <li>Goal: {this.state.caloriesGoal}</li>
+        </ul>
           <ProgressBar className='progressBar' now={this.state.progress} label={`${this.state.progress}%`} />
+          <hr />
 
-          <div className='inputLine'>
-            <h4>Add calories to your total for today</h4>
+          <h3>Add calories to your total for today</h3>
+          <div className='inputLine addCalories'>
             <FormControl
               type="text"
               onChange={e => this.setState({addCaloriesTextField: e.target.value})}
             />
-          </div>
-          <div className='inputLine'>
-            <br />
             <Button
               className='submitButton add'
               onClick={() => this.addCalories()}
@@ -131,6 +129,7 @@ export default class Diet extends Component {
               Add
             </Button>
           </div>
+
 
 
           </div>

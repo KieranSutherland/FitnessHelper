@@ -42,10 +42,10 @@ export default class NaviBar extends Component {
                   <MenuItem eventKey={3.3}><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
                   <MenuItem divider />
                   <MenuItem
-                    className='link dropdown'
                     eventKey={3.4}
                     onClick={() => firebase.auth().signOut()}>
-                    Sign out</MenuItem>
+                    <Link className='link dropdown'>
+                    Sign out</Link></MenuItem>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

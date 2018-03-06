@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormControl, Alert, Modal, OverlayTrigger, } from 'react-bootstrap';
+import { Button, FormControl, Alert, Modal } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
@@ -95,6 +95,7 @@ export default class Login extends Component {
             <FormControl
               type="password"
               placeholder="Password"
+              onKeyPress={e => {if(e.key === 'Enter') {this.submitClicked()}}} //Login if Enter key pressed
               onChange={ e => this.setState({ password : e.target.value }) }
             />
           </div>

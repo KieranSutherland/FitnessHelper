@@ -9,7 +9,6 @@ export default class Diet extends Component {
     super(props);
 
     this.state = {
-
       caloriesGoal: '',
       progress: 0,
       addCaloriesTextField: ''
@@ -18,7 +17,7 @@ export default class Diet extends Component {
     }
 
     componentDidMount() {
-      var newProgress = 0;
+
       firebase.auth().onAuthStateChanged(user => {
 
           if(user) {
@@ -51,10 +50,9 @@ export default class Diet extends Component {
               //Add or substract calories needed to gain or lose 1lb per week based on fitnessChoice
               var calGoal = Math.round((snapshot.val().fitnessChoice === 'gain') ? ((bmr * 1.55) + 500) : ((bmr * 1.55) - 500)); //1.55 for 3-5 days exercise per week
               this.setState({caloriesGoal: calGoal})
-              console.log(this.state);
 
               //Update progress bar with calories eaten for that day
-              newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
+              var newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
               this.setState({progress: newProgress});
 
               //Make sure progress can't go past 100%

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
+import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './Account.css';
@@ -8,6 +8,12 @@ export default class Account extends Component {
   constructor(){
     super();
     this.state = {
+      email: '',
+      fitnessChoice: '',
+      dob: '',
+      gender: '',
+      height: '',
+      weight: '',
       password1 : '',
       password2 : '',
       gainColor: 'white',
@@ -20,6 +26,10 @@ export default class Account extends Component {
       passwordAlertStyle : 'hidden',
       passwordAlertType : 'Success',
       passwordAlert: {
+        message: ''
+      },
+      deleteAlertStyle : 'hidden',
+      deleteAlert: {
         message: ''
       }
     }
@@ -110,6 +120,19 @@ export default class Account extends Component {
         });
       }
         this.setState({passwordAlertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
+    }
+
+    deleteAccountClicked() {
+      var user = firebase.auth().currentUser;
+      var ref = firebase.database().ref(
+        "/users/" + user.uid);
+      user.delete().then( () => {
+        // User deleted.
+        ref.remove();
+        this.setState({deleteAlertStyle: 'hidden'});
+      }).catch(error => {
+        this.setState({deleteAlert: error, deleteAlertStyle: 'visible'});
+      });
     }
 
     render() {
@@ -237,6 +260,49 @@ export default class Account extends Component {
               <strong>{this.state.passwordAlertType}!</strong> {this.state.passwordAlert.message}
             </Alert>
           </div>
+
+          <hr />
+          <div className='inputLine'>
+            <br /><br />
+            <Button
+              className='submitButton deleteAccount'
+              onClick={ () => this.setState({ show: true }) }
+              >
+              Delete Account
+            </Button>
+          </div>
+
+          <Modal show={this.state.show} onHide={ () => this.setState({ show: false }) }>
+            <Modal.Header closeButton>
+              <Modal.Title><strong style={{color: '#E53935'}}>Delete Account</strong></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4 style={{padding: '0px 0px 0px 15px'}}>Are you sure? You won't be able to get your account back!</h4>
+              <br />
+              <div className='lastChanceBtns'>
+              <Button
+                className='submitButton lastChance'
+                onClick={this.deleteAccountClicked.bind(this)}
+                >
+                YES
+              </Button>
+              <Button
+                className='submitButton lastChance'
+                onClick={() => this.setState({ show: false })}
+                >
+                NO
+              </Button>
+              </div>
+              <div>
+                <Alert className='alert' bsStyle="warning" style={{visibility:this.state.deleteAlertStyle}}>
+                  <strong>Error!</strong> {this.state.deleteAlert.message}
+                </Alert>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            </Modal.Footer>
+          </Modal>
 
         </div>
 

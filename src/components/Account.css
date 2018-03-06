@@ -2,3 +2,20 @@
   width: 400px;
   padding-bottom: 200px;
 }
+
+.submitButton.deleteAccount {
+  background-color: #E53935;
+}
+
+.submitButton.lastChance {
+  background-color: #E53935;
+  width: 150px;
+  height: 40px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+  padding-top: 5px;
+}
+
+.lastChanceBtns {
+  display: inline-flex;
+}

@@ -16,7 +16,6 @@ export default class Register extends Component {
       dob: '',
       height: '',
       weight : '',
-      calories: 0,
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',
@@ -72,7 +71,7 @@ export default class Register extends Component {
               dob: this.state.dob,
               height: this.state.height,
               weight: this.state.weight,
-              calories: this.state.calories
+              calories: 0
             });
             user.sendEmailVerification().then( () => {
               // Email sent.

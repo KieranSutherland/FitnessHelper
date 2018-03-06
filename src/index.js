@@ -19,9 +19,6 @@ import NaviBar from './components/NaviBar';
     if(user) {
       console.log('user has signed in or up', user);
       browserHistory.push('/home');
-      firebase.database().ref().child('users/' + user.uid).once('value').then(function(snapshot) {
-        console.log(snapshot.val());
-      });
       }
       else {
         console.log('user has signed out or still needs to sign in');

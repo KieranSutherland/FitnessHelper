@@ -1,4 +1,13 @@
 .diet-container {
-  padding-left: 50px;
+  padding-left: 100px;
   padding-top: 10px;
+  padding-right: 100px;
+}
+
+.progressBar {
+  width: 100%; /*100% of container*/
+}
+
+.submitButton.add {
+  width: 200px;
 }

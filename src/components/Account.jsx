@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './Account.css';
@@ -52,6 +53,9 @@ export default class Account extends Component {
             });
             this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
           });
+          }
+          else {
+            browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
           }
 
       });

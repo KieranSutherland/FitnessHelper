@@ -1,17 +1,18 @@
 .jumbo {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 5%; /* To allow for phone screens */
+  margin-right: 5%;
   margin-top: 20px;
   border-radius: 10px;
 }
 
 .jumbo h1, p {
   padding-left: 50px;
-  visibility:
+  padding-right: 50px;
 }
 
 .jumbo h1 a {
   color: #00C853;
+
 }
  .jumbo h1 a:hover {
    text-decoration: none;

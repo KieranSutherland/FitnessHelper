@@ -22,7 +22,16 @@
 }
 
 .link.dropdown {
-  padding: 0 0 0 0;
+  padding: 5px 0px 0px 15px;
+}
+
+.link.dropdown.signOut {
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.link.dropdown.signOut:hover {
+  cursor: pointer;
 }
 
 .link.header {
@@ -31,7 +40,6 @@
   padding-left: 25px;
   padding-right: 30px;
   padding-top: 15px;
-  /*text-shadow: 0 0 1px #00C853;*/
   font-weight: bold;
 }
 

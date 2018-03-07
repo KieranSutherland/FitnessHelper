@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ProgressBar, FormControl, Button } from 'react-bootstrap';
+import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './Diet.css';
@@ -61,6 +62,9 @@ export default class Diet extends Component {
               }
             });
 
+            }
+            else {
+              browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
             }
 
         });

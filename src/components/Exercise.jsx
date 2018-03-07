@@ -9,7 +9,7 @@ export default class Exercise extends Component {
   constructor(){
     super();
     this.state = {
-
+      fitnessChoice: ''
     }
 
     }

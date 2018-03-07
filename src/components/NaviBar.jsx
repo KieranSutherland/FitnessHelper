@@ -27,7 +27,7 @@ export default class NaviBar extends Component {
           <Navbar fluid>
 
             <Navbar.Header>
-              <Navbar.Brand componentClass='reset'>
+              <Navbar.Brand componentClass='span'>
                 <Link className='link header' to={'/home'}>FitnessHelper</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
@@ -35,20 +35,20 @@ export default class NaviBar extends Component {
 
             <Navbar.Collapse>
               <Nav>
-                <NavItem class='disabled' eventKey={1} componentClass='reset'>
+                <NavItem eventKey={1} componentClass='span'>
                   <Link className='link' to={'/diet'}>Diet</Link>
                 </NavItem>
-                <NavItem eventKey={2} componentClass='reset'>
+                <NavItem eventKey={2} componentClass='span'>
                   <Link className='link' to={'/exercise'}>Exercise</Link>
                 </NavItem>
               </Nav>
               <Nav pullRight>
                 <NavDropdown eventKey={3} title="Settings" id="nav-dropdown">
-                  <MenuItem eventKey={3.1} componentClass='reset'><Link className='link dropdown' to={'/account'}>Account</Link></MenuItem>
-                  <MenuItem eventKey={3.2} componentClass='reset'><Link className='link dropdown' to={'/contact_us'}>Contact us</Link></MenuItem>
-                  <MenuItem eventKey={3.3} componentClass='reset'><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
+                  <MenuItem eventKey={3.1} componentClass='span'><Link className='link dropdown' to={'/account'}>Account</Link></MenuItem>
+                  <MenuItem eventKey={3.2} componentClass='span'><Link className='link dropdown' to={'/contact_us'}>Contact us</Link></MenuItem>
+                  <MenuItem eventKey={3.3} componentClass='span'><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4} componentClass='reset'
+                  <MenuItem eventKey={3.4} componentClass='span'
                     // On click, if user is logged in then sign out, but if user isn't logged in then direct to login page
                     onClick={() => {(this.state.signInOut === 'Sign out') ? firebase.auth().signOut() : browserHistory.push('/login')}}>
                     <a className='link dropdown signOut'>{this.state.signInOut}</a>

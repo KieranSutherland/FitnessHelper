@@ -10,8 +10,9 @@
 }
 
 .link {
-  color: #262626;
-  padding: 25px 25px 25px 25px;
+  display: block;
+  color: #333333;
+  padding: 13px 25px 5px 25px;
   font-size: 20px;
 }
 
@@ -24,16 +25,22 @@
   padding: 0 0 0 0;
 }
 
-.header a {
+.link.header {
+  color: #00C853;
   font-size: 30px !important;
   padding-left: 25px;
   padding-right: 30px;
+  padding-top: 15px;
   /*text-shadow: 0 0 1px #00C853;*/
   font-weight: bold;
 }
 
+.link.header:hover {
+  color: #00E676
+}
+
 #nav-dropdown {
-  color: #000000;
+  color: #333333;
   padding-left: 25px;
   font-size: 20px;
 }

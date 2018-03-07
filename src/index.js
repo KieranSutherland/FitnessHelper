@@ -17,11 +17,9 @@ import NaviBar from './components/NaviBar';
 
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      console.log('user has signed in or up', user);
       browserHistory.push('/home');
       }
       else {
-        console.log('user has signed out or still needs to sign in');
         browserHistory.replace('/login');
       }
   })

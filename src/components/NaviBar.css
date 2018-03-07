@@ -1,5 +1,6 @@
 
 .navbar {
+
   background-color: #f2f2f2;
   border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -41,6 +42,7 @@
   padding-right: 30px;
   padding-top: 15px;
   font-weight: bold;
+  word-break: break-all;
 }
 
 .link.header:hover {

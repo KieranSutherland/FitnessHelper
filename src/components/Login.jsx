@@ -17,7 +17,7 @@ export default class Login extends Component {
       },
       show: false,
       resetAlertStyle : 'hidden',
-      resetAlertType : 'Success',
+      resetAlertType : "success",
       resetAlert: {
         message: ''
       }
@@ -36,9 +36,9 @@ export default class Login extends Component {
 
     forgotPassword() {
       firebase.auth().sendPasswordResetEmail(this.state.email).then( () => {
-        this.setState({resetAlert: {message: 'Email has been sent'}, resetAlertType: 'success'});
+        this.setState({resetAlert: {message: 'Email has been sent'}, resetAlertType: "success"});
       }).catch(error => {
-        this.setState({resetAlert: error, resetAlertType: 'warning'});
+        this.setState({resetAlert: error, resetAlertType: "warning"});
       });
         this.setState({resetAlertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
     }

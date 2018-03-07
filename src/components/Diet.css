@@ -1,7 +1,7 @@
 .diet-container {
-  padding-left: 100px;
+  margin-left: 5%; /* To allow for phone screens */
+  margin-right: 5%;
   padding-top: 10px;
-  padding-right: 100px;
 }
 
 .progressBar {
@@ -9,7 +9,7 @@
 }
 
 .submitButton.add {
-  width: 200px;
+  width: 80%;
   height: 35px;
   margin-left: 15px;
   padding-top: 3px;
@@ -27,4 +27,6 @@
 
 .inputLine.addCalories {
   display: inline-flex;
+  width: 100%;
+  max-width: 400px;
 }

@@ -17,7 +17,7 @@ render() {
     <div>
       <NaviBar />
       <Jumbotron className='jumbo'>
-        <h1>Welcome to <a>Fitness</a><a>Helper</a></h1>
+        <h1>Welcome to <a>FitnessHelper</a></h1>
         <p>
           FitnessHelper makes it easy to find the correct diet and exercise plan for your fitness goal.
         </p>

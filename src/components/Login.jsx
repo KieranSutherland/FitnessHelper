@@ -62,7 +62,7 @@ export default class Login extends Component {
                   onChange={ e => this.setState({ email : e.target.value }) }
                 />
                 <Button
-                  className='passwordResetButton'
+                  className='sendPasswordResetButton'
                   onClick={this.forgotPassword.bind(this)}
                   >
                   Send Email

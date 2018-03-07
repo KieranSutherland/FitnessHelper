@@ -1,7 +1,8 @@
 .diet-container {
-  margin-left: 5%; /* To allow for phone screens */
-  margin-right: 5%;
+  margin: 0 auto;
+  width: 90%;
   padding-top: 10px;
+  max-width: 1500px;
 }
 
 .progressBar {
@@ -13,11 +14,6 @@
   height: 35px;
   margin-left: 15px;
   padding-top: 3px;
-}
-
-.caloriesAndGoal {
-  float: left;
-  display: inline-block;
 }
 
 .caloriesAndGoal p {

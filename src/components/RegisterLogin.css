@@ -1,7 +1,7 @@
 
 .container {
   margin: 0 auto;
-  width: 90%;
+  width: 95%;
   padding-top: 10px;
   max-width: 400px;
 }
@@ -65,8 +65,9 @@ h4 {
   cursor: pointer;
 }
 
-.passwordResetButton {
-  width: 200px;
+.sendPasswordResetButton {
+  width: 60%;
+  max-width: 200px;
   padding: 10px 20px 10px 20px;
   margin-top: 15px;
   font-size: 20px;
@@ -74,7 +75,7 @@ h4 {
   transition: all 0.2s ease 0s;
 }
 
-.passwordResetButton:hover {
+.sendPasswordResetButton:hover {
   background-color: #00e660;
   transition: all 0.2s ease 0s;
 }

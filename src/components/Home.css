@@ -1,13 +1,13 @@
 .jumbo {
-  margin-left: 5%; /* To allow for phone screens */
-  margin-right: 5%;
-  margin-top: 20px;
+  margin: 0 auto;
+  width: 90%;
+  padding-top: 20px;
   border-radius: 10px;
 }
 
 .jumbo h1, p {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .jumbo h1 a {

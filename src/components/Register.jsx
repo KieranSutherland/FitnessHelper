@@ -134,7 +134,7 @@ export default class Register extends Component {
             <h4>Height</h4>
             <FormControl
               type="text"
-              placeholder="Heigh (cm)"
+              placeholder="Height (cm)"
               onChange={ e => this.setState({ height : e.target.value }) }
             />
           </div>

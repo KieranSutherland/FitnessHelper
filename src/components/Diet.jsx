@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProgressBar, FormControl, Button } from 'react-bootstrap';
+import { ProgressBar, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
@@ -12,12 +12,16 @@ export default class Diet extends Component {
     this.state = {
       caloriesGoal: '',
       progress: 0,
-      addCaloriesTextField: ''
+      foodTextField: '',
+      caloriesTextField: '',
+      foodLog: []
     }
 
     }
 
     componentDidMount() {
+
+
 
       firebase.auth().onAuthStateChanged(user => {
 
@@ -69,14 +73,30 @@ export default class Diet extends Component {
 
         });
 
+        this.updateFoodLog();
+
       }
 
-      addCalories() {
-        //If text field is empty, no need to change states
-        if(this.state.addCaloriesTextField != '') {
+      updateFoodLog() {
+        if(firebase.auth().currentUser) {
+          //Update food log
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid).child('foodLog').on('value', snapshot => {
+            let foodArray = [];
+            snapshot.forEach(snap => {
+              const { calories, food } = snap.val();
+              foodArray.push({ calories, food });
+            })
+            this.setState({foodLog: foodArray})
+          });
+        }
+      }
+
+      addFood() {
+        //If text fields are empty, no need to change states
+        if(this.state.caloriesTextField !== '' && this.state.foodTextField !== '') {
           //Update states
           //Need to delcare newCal state so that progressBar and database update instantly instead of next button click (same for newProgress)
-          var newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.addCaloriesTextField , 10 ))
+          var newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.caloriesTextField , 10 ))
           var newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
           this.setState({calories: newCal});
           this.setState({progress: newProgress});
@@ -89,10 +109,29 @@ export default class Diet extends Component {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
               calories: newCal
             });
+            firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/foodLog').push({
+              food: this.state.foodTextField,
+              calories: this.state.caloriesTextField
+            });
           }
 
         }
 
+      }
+
+      removeClicked(index) {
+        const dataLink = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/foodLog')
+
+        let i = 0
+        dataLink.once('value', snapshot => {
+          snapshot.forEach( snap => {
+            if(i === index) {
+              //If index matches the index of the log chosen to be removed, remove the child node
+              snap.ref.remove();
+            }
+            i++;
+          })
+        })
       }
 
     render() {
@@ -103,29 +142,52 @@ export default class Diet extends Component {
 
           <h1>Diet</h1>
           <hr />
-          <h2>Progress for today's calorie intake:</h2>
-          <ul className='caloriesAndGoal'>
-          <li>Calories: {this.state.calories}</li>
-          <li>Goal: {this.state.caloriesGoal}</li>
-        </ul>
+          <h2>Progress for today's calorie intake</h2>
+          <div className='caloriesAndGoal'>
+            <ul>
+              <li>Calories: {this.state.calories}</li>
+              <li>Goal: {this.state.caloriesGoal}</li>
+            </ul>
+          </div>
+
           <ProgressBar className='progressBar' now={this.state.progress} label={`${this.state.progress}%`} />
           <hr />
 
-          <h3>Add calories to your total for today</h3>
+          <h2>Add eaten food</h2>
           <div className='inputLine addCalories'>
             <FormControl
               type="text"
-              onChange={e => this.setState({addCaloriesTextField: e.target.value})}
+              placeholder='Food'
+              style={{margin: '0px 15px 0px 0px'}}
+              onChange={e => this.setState({foodTextField: e.target.value})}
+            />
+            <FormControl
+              type="text"
+              placeholder='Calories'
+              onKeyPress={e => {if(e.key === 'Enter') {this.addFood()}}} //Login if Enter key pressed
+              onChange={e => this.setState({caloriesTextField: e.target.value})}
             />
             <Button
               className='submitButton add'
-              onClick={() => this.addCalories()}
+              onClick={() => this.addFood()}
               >
               Add
             </Button>
           </div>
+          <hr />
 
-
+          <div className='foodLogContainer'>
+            <h2>Food Log</h2>
+            <div style={{padding: '20px 0 0 20px'}}>
+              {
+                this.state.foodLog.map((array, index) => {
+                  return (
+                    <div key={index} className='foodLog'><strong>{array.food}</strong> - {array.calories} <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" /></div>
+                  )
+                })
+              }
+            </div>
+          </div>
 
           </div>
         </div>

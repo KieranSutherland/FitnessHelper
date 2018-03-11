@@ -17,7 +17,7 @@ import NaviBar from './components/NaviBar';
 
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      browserHistory.push('/home');
+      browserHistory.push('/exercise');
       }
       else {
         browserHistory.replace('/login');

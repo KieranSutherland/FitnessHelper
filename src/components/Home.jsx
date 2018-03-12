@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { firebase } from '../firebase';
-import { Link } from 'react-router';
-import { Button, Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 import NaviBar from './NaviBar';
 import './Home.css';
 

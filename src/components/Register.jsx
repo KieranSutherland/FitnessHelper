@@ -12,7 +12,7 @@ export default class Register extends Component {
       email : '',
       password : '',
       fitnessChoice : '',
-      gender: 'male',
+      gender: '',
       dob: '',
       height: '',
       weight : '',
@@ -51,7 +51,7 @@ export default class Register extends Component {
     }
 
     submitClicked() { // Check all information has been entered
-      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === '') {
+      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === '' || this.state.gender === '') {
         this.setState({error: {message: 'Please enter all information'} })
         this.setState({alertStyle: 'visible'});
       }
@@ -124,7 +124,7 @@ export default class Register extends Component {
 
           <div className='inputLine'>
             <h4>Gender</h4>
-              <ToggleButtonGroup className='radio' type="radio" name="options" defaultValue={'male'}>
+              <ToggleButtonGroup className='radio' type="radio" name="options">
                 <ToggleButton value={'male'} onChange={e => this.setState({ gender : e.target.value })}>Male</ToggleButton>
                 <ToggleButton value={'female'} onChange={e => this.setState({ gender : e.target.value })}>Female</ToggleButton>
               </ToggleButtonGroup>

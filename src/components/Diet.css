@@ -11,6 +11,7 @@
 
 .progressBar {
   width: 100%; /*100% of container*/
+  margin-top: 6px;
 }
 
 .submitButton.add {
@@ -26,12 +27,12 @@
   list-style-type: none;
   display: block;
   text-align: center;
-  margin-bottom: 15px;
 }
 
 .caloriesAndGoal ul {
   list-style-type: none;
   display: inline-table;
+  padding-left: 0px;
 }
 
 .caloriesAndGoal li  {

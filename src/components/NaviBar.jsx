@@ -14,10 +14,28 @@ export default class NaviBar extends Component {
     }
 
     componentDidMount() {
+
       firebase.auth().onAuthStateChanged(user => {
-        // If user is logged in, set menu item in nav bar to read 'sign out', if not, then it will read 'sign in'
-        (user) ? this.setState({signInOut: 'Sign out'}) : this.setState({signInOut: 'Sign in'});
+
+        if(user) {
+
+          firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
+            this.setState({ // Set values to current user's data
+              fitnessChoice: (snapshot.val() && snapshot.val().fitnessChoice),
+            });
+          });
+          // If user is logged in, set menu item in nav bar to read 'sign out'
+          this.setState({signInOut: 'Sign out'})
+          }
+          else {
+            // If user isn't logged in, set menu item to read 'sign in'
+            this.setState({signInOut: 'Sign in'});
+          }
       });
+    }
+
+    exerciseClicked() {
+      (this.state.fitnessChoice === 'gain') ? browserHistory.push('/exercise_gain') : browserHistory.push('/exercise_lose')
     }
 
     render() {
@@ -39,7 +57,7 @@ export default class NaviBar extends Component {
                   <Link className='link' to={'/diet'}>Diet</Link>
                 </NavItem>
                 <NavItem eventKey={2} componentClass='span'>
-                  <Link className='link' to={'/exercise'}>Exercise</Link>
+                  <Link className='link' onClick={() => this.exerciseClicked()}>Exercise</Link>
                 </NavItem>
               </Nav>
               <Nav pullRight>

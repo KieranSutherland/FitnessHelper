@@ -20,12 +20,12 @@ export default class Account extends Component {
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',
-      alertType : 'Success',
+      alertType : 'success',
       alert: {
         message: ''
       },
       passwordAlertStyle : 'hidden',
-      passwordAlertType : 'Success',
+      passwordAlertType : 'success',
       passwordAlert: {
         message: ''
       },

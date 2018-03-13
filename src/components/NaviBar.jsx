@@ -63,8 +63,8 @@ export default class NaviBar extends Component {
               <Nav pullRight>
                 <NavDropdown eventKey={3} title="Settings" id="nav-dropdown">
                   <MenuItem eventKey={3.1} componentClass='span'><Link className='link dropdown' to={'/account'}>Account</Link></MenuItem>
-                  <MenuItem eventKey={3.2} componentClass='span'><Link className='link dropdown' to={'/contact_us'}>Contact us</Link></MenuItem>
-                  <MenuItem eventKey={3.3} componentClass='span'><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
+                  <MenuItem eventKey={3.2} componentClass='span'><Link className='link dropdown' to={'/about_us'}>About us</Link></MenuItem>
+                  <MenuItem eventKey={3.3} componentClass='span'><Link className='link dropdown' to={'/contact_us'}>Contact us</Link></MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.4} componentClass='span'
                     // On click, if user is logged in then sign out, but if user isn't logged in then direct to login page

@@ -42,12 +42,12 @@ export default class ExerciseLose extends Component {
       return (
         <div>
           <NaviBar />
-          <div className='diet-container'>
+          <div className='content-container'>
 
           <h1>Exercise</h1>
           <hr />
           <h2>Your Workout</h2>
-          <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+          <Tabs defaultActiveKey={1} animation={false} id="uncontrolled-tab-example">
 
             <Tab eventKey={1} title="Week 1-4">
               <h3>Monday</h3>

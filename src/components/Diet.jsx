@@ -156,7 +156,7 @@ export default class Diet extends Component {
       return (
         <div>
           <NaviBar />
-          <div className='diet-container'>
+          <div className='content-container'>
 
           <h1>Diet</h1>
           <hr />

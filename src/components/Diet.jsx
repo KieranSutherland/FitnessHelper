@@ -124,13 +124,31 @@ export default class Diet extends Component {
 
         let i = 0
         dataLink.once('value', snapshot => {
+          var removedCals = 0;
           snapshot.forEach( snap => {
             if(i === index) {
+              removedCals = snap.val().calories
               //If index matches the index of the log chosen to be removed, remove the child node
               snap.ref.remove();
             }
             i++;
           })
+          // Update new calories and progressBar values
+          var newCal = (parseInt(this.state.calories , 10 )) - removedCals
+          var newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
+          this.setState({calories: newCal});
+          this.setState({progress: newProgress});
+          //Make sure progress can't go past 100%
+          if(newProgress > 100) {
+            this.setState({progress: 100})
+          }
+          //Update database
+          if(firebase.auth()) {
+            firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
+              calories: newCal
+            });
+          }
+
         })
       }
 

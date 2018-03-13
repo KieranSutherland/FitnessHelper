@@ -3,7 +3,7 @@ import { Tabs, Tab, Table } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './Exercise.css';
+import './css/Exercise.css';
 import Toning1 from './workouts/Toning1';
 import Core1 from './workouts/Core1';
 import Lower1 from './workouts/Lower1';
@@ -161,9 +161,8 @@ export default class ExerciseLose extends Component {
             decide. Experiment with different weights, but don't make it too easy, push yourself. No pain, no gain.
           </p>
           <p>
-            If you feel like you aren't getting enough of a workout in after you've finished your main exercises, feel free to add accessory lifts at the end.
-            These are any exercise that will assist the main exercises (squat, bench, deadlift, overhead press). Exercises could include, for example, dumbbell
-            bench press, leg press, or lat pulldowns.
+            If you feel like you aren't getting enough of a workout in after you've finished your main exercises, feel free to add additional exercises before you leave.
+            This could include, for example, pull ups, shoulder press, or simply extra time on the treadmill.
           </p>
 
         </div>

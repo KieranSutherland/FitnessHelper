@@ -3,7 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './Exercise.css';
+import './css/Exercise.css';
 import DeadliftWorkout from './workouts/DeadliftWorkout';
 import BenchWorkout from './workouts/BenchWorkout';
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import NaviBar from './NaviBar';
-import './Home.css';
+import './css/Home.css';
 
 export default class Home extends Component {
   constructor(){

@@ -3,7 +3,7 @@ import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Al
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './Account.css';
+import './css/Account.css';
 
 export default class Account extends Component {
   constructor(){

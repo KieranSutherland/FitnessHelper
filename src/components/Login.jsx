@@ -3,7 +3,7 @@ import { Button, FormControl, Alert, Modal } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './RegisterLogin.css';
+import './css/RegisterLogin.css';
 
 export default class Login extends Component {
   constructor(){

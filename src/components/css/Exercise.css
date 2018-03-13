@@ -5,3 +5,7 @@
 #uncontrolled-tab-example {
   font-size: 17px;
 }
+
+.tutorials-container a:hover {
+  cursor: pointer;
+}

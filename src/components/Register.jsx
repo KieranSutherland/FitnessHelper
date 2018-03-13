@@ -3,7 +3,7 @@ import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Al
 import { Link } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './RegisterLogin.css';
+import './css/RegisterLogin.css';
 
 export default class Register extends Component {
   constructor(){

@@ -17,7 +17,7 @@ import AboutUs from './components/AboutUs';
 
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      browserHistory.push('/home');
+      browserHistory.push('/exercise_gain');
       }
       else {
         browserHistory.replace('/login');

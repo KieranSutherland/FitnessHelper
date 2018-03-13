@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { Link, browserHistory } from 'react-router';
 import { firebase } from '../firebase';
-import './NaviBar.css';
+import './css/NaviBar.css';
 
 export default class NaviBar extends Component {
   constructor(){

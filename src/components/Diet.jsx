@@ -3,7 +3,7 @@ import { ProgressBar, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
-import './Diet.css';
+import './css/Diet.css';
 
 export default class Diet extends Component {
   constructor(props){

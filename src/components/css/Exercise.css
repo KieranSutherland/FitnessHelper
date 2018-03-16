@@ -6,6 +6,10 @@
   font-size: 17px;
 }
 
-.tutorials-container a:hover {
+#week1Div, #week2Div, #week1To4Div, #week5To8Div {
+  max-width: 850px;
+}
+
+a:hover {
   cursor: pointer;
 }

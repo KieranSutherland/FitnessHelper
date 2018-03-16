@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import NaviBar from './NaviBar';
 import './css/Exercise.css';
 import DeadliftWorkout from './workouts/DeadliftWorkout';
@@ -33,6 +35,24 @@ export default class ExerciseGain extends Component {
       });
     }
 
+    printDocument(choice) {
+      let input;
+      if(choice === '1') {
+        input = document.getElementById('week1Div');
+      }
+      else {
+        input = document.getElementById('week2Div');
+      }
+      html2canvas(input)
+      .then(canvas => {
+          document.body.appendChild(canvas);
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF();
+          pdf.addImage(imgData, 'JPEG', 0, 2); //Change for paddding
+          pdf.save("workout.pdf");
+        });
+    }
+
     render() {
 
       return (
@@ -46,28 +66,36 @@ export default class ExerciseGain extends Component {
           <Tabs defaultActiveKey={1} animation={false} id="uncontrolled-tab-example">
 
             <Tab eventKey={1} title="Week 1">
-              <h3>Monday</h3>
-              <DeadliftWorkout />
+              <div id="week1Div" >
+                <h3>Monday</h3>
+                <DeadliftWorkout />
 
-              <h3>Wednesday</h3>
-              <BenchWorkout />
+                <h3>Wednesday</h3>
+                <BenchWorkout />
 
-              <h3>Friday</h3>
-              <DeadliftWorkout />
+                <h3>Friday</h3>
+                <DeadliftWorkout />
+              </div>
+              <h4><a onClick={() => this.printDocument('1')}>Download Week as PDF</a></h4>
             </Tab>
 
+
             <Tab eventKey={2} title="Week 2">
-              <h3>Monday</h3>
-              <BenchWorkout />
+              <div id="week2Div" >
+                <h3>Monday</h3>
+                <BenchWorkout />
 
-              <h3>Wednesday</h3>
-              <DeadliftWorkout />
+                <h3>Wednesday</h3>
+                <DeadliftWorkout />
 
-              <h3>Friday</h3>
-              <BenchWorkout />
+                <h3>Friday</h3>
+                <BenchWorkout />
+              </div>
+              <h4><a onClick={() => this.printDocument('2')}>Download Week as PDF</a></h4>
             </Tab>
 
           </Tabs>
+
           <h3>Tutorials</h3>
           <div className='tutorials-container'>
             <p><a>Squat</a></p>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Tabs, Tab, Table } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import NaviBar from './NaviBar';
 import './css/Exercise.css';
 import Toning1 from './workouts/Toning1';
@@ -37,6 +39,24 @@ export default class ExerciseLose extends Component {
       });
     }
 
+    printDocument(choice) {
+      let input;
+      if(choice === '1') {
+        input = document.getElementById('week1To4Div');
+      }
+      else {
+        input = document.getElementById('week5To8Div');
+      }
+      html2canvas(input)
+      .then(canvas => {
+          document.body.appendChild(canvas);
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF();
+          pdf.addImage(imgData, 'JPEG', 0, 2); //Change for paddding
+          pdf.save("workout.pdf");
+        });
+    }
+
     render() {
 
       return (
@@ -50,79 +70,85 @@ export default class ExerciseLose extends Component {
           <Tabs defaultActiveKey={1} animation={false} id="uncontrolled-tab-example">
 
             <Tab eventKey={1} title="Week 1-4">
-              <h3>Monday</h3>
-              <Toning1 />
+              <div id="week1To4Div">
+                <h3>Monday</h3>
+                <Toning1 />
 
-              <h3>Wednesday</h3>
-              <Core1 />
+                <h3>Wednesday</h3>
+                <Core1 />
 
-              <h3>Friday</h3>
-              <Lower1 />
+                <h3>Friday</h3>
+                <Lower1 />
 
-              <h3>Saturday</h3>
-              <Table striped bordered condensed hover>
-                <thead>
-                  <tr>
-                    <th>Exercise</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Fast walk</td>
-                    <td>1</td>
-                    <td>30 mins</td>
-                  </tr>
-                </tbody>
-              </Table>
+                <h3>Saturday</h3>
+                <Table striped bordered condensed hover>
+                  <thead>
+                    <tr>
+                      <th>Exercise</th>
+                      <th>Sets</th>
+                      <th>Reps</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Fast walk</td>
+                      <td>1</td>
+                      <td>30 mins</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+              <h4><a onClick={() => this.printDocument('1')}>Download Week as PDF</a></h4>
             </Tab>
 
             <Tab eventKey={2} title="Week 5-8">
-              <h3>Monday</h3>
-              <Toning2 />
+              <div id="week5To8Div">
+                <h3>Monday</h3>
+                <Toning2 />
 
-              <h3>Wednesday</h3>
-              <Core2 />
+                <h3>Wednesday</h3>
+                <Core2 />
 
-              <h3>Thursday</h3>
-              <Table striped bordered condensed hover>
-                <thead>
-                  <tr>
-                    <th>Exercise</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Treadmill/Rowing Machine</td>
-                    <td>1</td>
-                    <td>20 mins</td>
-                  </tr>
-                </tbody>
-              </Table>
+                <h3>Thursday</h3>
+                <Table striped bordered condensed hover>
+                  <thead>
+                    <tr>
+                      <th>Exercise</th>
+                      <th>Sets</th>
+                      <th>Reps</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Treadmill/Rowing Machine</td>
+                      <td>1</td>
+                      <td>20 mins</td>
+                    </tr>
+                  </tbody>
+                </Table>
 
-              <h3>Friday</h3>
-              <Lower2 />
+                <h3>Friday</h3>
+                <Lower2 />
 
-              <h3>Saturday</h3>
-              <Table striped bordered condensed hover>
-                <thead>
-                  <tr>
-                    <th>Exercise</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Bike machine</td>
-                    <td>1</td>
-                    <td>20 mins</td>
-                  </tr>
-                </tbody>
-              </Table>
+                <h3>Saturday</h3>
+                <Table striped bordered condensed hover>
+                  <thead>
+                    <tr>
+                      <th>Exercise</th>
+                      <th>Sets</th>
+                      <th>Reps</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Bike machine</td>
+                      <td>1</td>
+                      <td>20 mins</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+              <h4><a onClick={() => this.printDocument('5')}>Download Week as PDF</a></h4>
             </Tab>
 
           </Tabs>

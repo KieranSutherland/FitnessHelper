@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProgressBar, FormControl, Button, Glyphicon } from 'react-bootstrap';
+import { ProgressBar, FormControl, Button, Glyphicon, Modal, Alert } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
@@ -14,7 +14,11 @@ export default class Diet extends Component {
       progress: 0,
       foodTextField: '',
       caloriesTextField: '',
-      foodLog: []
+      foodLog: [],
+      resetDayAlertStyle : 'hidden',
+      resetDayAlert: {
+        message: ''
+      }
     }
 
     }
@@ -152,6 +156,22 @@ export default class Diet extends Component {
         })
       }
 
+      resetDayClicked() {
+        //Update database
+        if(firebase.auth().currentUser) {
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
+            calories: 0
+          });
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/foodLog').remove();
+          this.setState({calories: 0});
+          this.setState({progress: 0});
+          // Close Modal
+          this.setState({ show: false })
+        }
+
+
+      }
+
     render() {
       return (
         <div>
@@ -206,6 +226,46 @@ export default class Diet extends Component {
               }
             </div>
           </div>
+
+          <hr /><br />
+          <Button
+            className='submitButton resetDay'
+            onClick={ () => this.setState({ show: true }) }
+            >
+            Reset Day
+          </Button>
+
+          <Modal show={this.state.show} onHide={ () => this.setState({ show: false }) }>
+            <Modal.Header closeButton>
+              <Modal.Title><strong style={{color: '#E53935'}}>Reset Day</strong></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4 style={{padding: '0px 0px 0px 15px'}}>Are you sure? Your calorie intake and food log will be reset.</h4>
+              <br />
+              <div className='lastChanceBtns'>
+              <Button
+                className='submitButton lastChance'
+                onClick={this.resetDayClicked.bind(this)}
+                >
+                YES
+              </Button>
+              <Button
+                className='submitButton lastChance'
+                onClick={() => this.setState({ show: false })}
+                >
+                NO
+              </Button>
+              </div>
+              <div>
+                <Alert className='alert' bsStyle="warning" style={{visibility:this.state.resetDayAlertStyle}}>
+                  <strong>Error!</strong> {this.state.resetDayAlert.message}
+                </Alert>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            </Modal.Footer>
+          </Modal>
 
           </div>
         </div>

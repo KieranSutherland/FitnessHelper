@@ -72,3 +72,12 @@
 .removeGlyph:hover {
   cursor: pointer;
 }
+
+.submitButton.resetDay {
+  background-color: #E53935;
+  width: 300px;
+}
+
+.submitButton.resetDay:hover, .submitButton.resetDay:focus {
+  background-color: #E53935;
+}

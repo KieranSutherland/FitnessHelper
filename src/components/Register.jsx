@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './css/RegisterLogin.css';
@@ -78,6 +78,8 @@ export default class Register extends Component {
             }).catch(error => {
               console.log('Error sending email verification')
             });
+            // Because user has logged in, re-direct to home page
+            browserHistory.push('/home');
           }
         });
       }
@@ -177,7 +179,7 @@ export default class Register extends Component {
               Register
             </Button>
           </div>
-          <div><Link to={'/Login'}>Already a member? Log in here</Link></div>
+          <div><Link to={'/login'}>Already a member? Log in here</Link></div>
 
           <br /><br />
 

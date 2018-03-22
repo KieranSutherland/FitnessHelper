@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Alert, Modal } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './css/RegisterLogin.css';
@@ -31,7 +31,13 @@ export default class Login extends Component {
         console.log('error');
         this.setState({error});
         this.setState({alertStyle: 'visible'});
-      })
+      });
+      // If user has successfully logged in, re-direct to home page
+      firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+          browserHistory.push('/home');
+          }
+        });
     }
 
     forgotPassword() {
@@ -110,7 +116,7 @@ export default class Login extends Component {
               Login
             </Button>
           </div>
-          <div><Link to={'/Register'}>Not a member? Register here</Link></div>
+          <div><Link to={'/register'}>Not a member? Register here</Link></div>
 
           <br /><br />
 

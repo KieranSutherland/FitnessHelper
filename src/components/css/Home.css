@@ -16,4 +16,5 @@
 }
  .jumbo h1 a:hover {
    text-decoration: none;
+   cursor: default;
  }

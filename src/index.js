@@ -16,29 +16,27 @@ import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 
   firebase.auth().onAuthStateChanged(user => {
-    if(user) {
-      browserHistory.push('/diet');
-      }
-      else {
+    if(!user) { // If user has not signed in, re-direct to login page
         browserHistory.replace('/login');
       }
   })
 
 ReactDOM.render(
+
     <Router path="/" history={browserHistory}>
-      <Route path="/home" component={Home} />
-      <Route path="/diet" component={Diet} />
-      <Route path="/exercise_gain" component={ExerciseGain} />
-      <Route path="/exercise_lose" component={ExerciseLose} />
+        <Route path="/home" component={Home} />
+        <Route path="/diet" component={Diet} />
+        <Route path="/exercise_gain" component={ExerciseGain} />
+        <Route path="/exercise_lose" component={ExerciseLose} />
 
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
 
-      <Route path="/account" component={Account} />
-      <Route path="/contact_us" component={ContactUs} />
-      <Route path="/about_us" component={AboutUs} />
-
+        <Route path="/account" component={Account} />
+        <Route path="/contact_us" component={ContactUs} />
+        <Route path="/about_us" component={AboutUs} />
     </Router>
+
 
   , document.getElementById('root')
 )

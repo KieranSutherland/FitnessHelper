@@ -75,7 +75,8 @@
 
 .submitButton.resetDay {
   background-color: #E53935;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .submitButton.resetDay:hover, .submitButton.resetDay:focus {

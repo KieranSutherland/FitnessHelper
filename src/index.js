@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Diet from './components/Diet';
 import ExerciseGain from './components/ExerciseGain';
 import ExerciseLose from './components/ExerciseLose';
+import CalorieHistory from './components/CalorieHistory';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route path="/diet" component={Diet} />
         <Route path="/exercise_gain" component={ExerciseGain} />
         <Route path="/exercise_lose" component={ExerciseLose} />
+        <Route path="/calorie_history" component={CalorieHistory} />
 
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
@@ -36,7 +38,6 @@ ReactDOM.render(
         <Route path="/contact_us" component={ContactUs} />
         <Route path="/about_us" component={AboutUs} />
     </Router>
-
 
   , document.getElementById('root')
 )

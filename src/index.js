@@ -5,6 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import Home from './components/Home';
 import Diet from './components/Diet';
+import Exercise from './components/Exercise';
 import ExerciseGain from './components/ExerciseGain';
 import ExerciseLose from './components/ExerciseLose';
 import CalorieHistory from './components/CalorieHistory';
@@ -27,8 +28,7 @@ ReactDOM.render(
     <Router path="/" history={browserHistory}>
         <Route path="/home" component={Home} />
         <Route path="/diet" component={Diet} />
-        <Route path="/exercise_gain" component={ExerciseGain} />
-        <Route path="/exercise_lose" component={ExerciseLose} />
+        <Route path="/exercise" component={Exercise} />
         <Route path="/calorie_history" component={CalorieHistory} />
 
         <Route path="/login" component={Login} />

@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import NaviBar from './NaviBar';
 import './css/Exercise.css';
 import Toning1 from './workouts/Toning1';
 import Core1 from './workouts/Core1';
@@ -19,24 +18,6 @@ export default class ExerciseLose extends Component {
     this.state = {
     }
 
-    }
-
-    componentDidMount() {
-
-      firebase.auth().onAuthStateChanged(user => {
-
-        if(user) {
-          firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
-            if((snapshot.val() && snapshot.val().fitnessChoice) === 'gain') {
-              browserHistory.push('/exercise_gain'); // Push user to correct page if they have a different fitnessChoice
-            }
-          });
-          }
-          else {
-            browserHistory.push('/login'); // User isn't allowed to access this page without being logged in first
-          }
-
-      });
     }
 
     printDocument(choice) {
@@ -60,9 +41,6 @@ export default class ExerciseLose extends Component {
     render() {
 
       return (
-
-      <main>
-        <NaviBar />
 
           <div className='content-container'>
 
@@ -223,8 +201,6 @@ export default class ExerciseLose extends Component {
           </p>
 
         </div>
-
-      </main>
 
       )
     }

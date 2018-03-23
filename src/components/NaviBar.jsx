@@ -34,10 +34,6 @@ export default class NaviBar extends Component {
       });
     }
 
-    exerciseClicked() {
-      (this.state.fitnessChoice === 'gain') ? browserHistory.push('/exercise_gain') : browserHistory.push('/exercise_lose')
-    }
-
     render() {
       return (
 
@@ -57,7 +53,7 @@ export default class NaviBar extends Component {
                   <Link className='link' to={'/diet'}>Diet</Link>
                 </NavItem>
                 <NavItem eventKey={2} componentClass='span'>
-                  <Link className='link' onClick={() => this.exerciseClicked()}>Exercise</Link>
+                  <Link className='link' to={'/exercise'}>Exercise</Link>
                 </NavItem>
               </Nav>
               <Nav pullRight>

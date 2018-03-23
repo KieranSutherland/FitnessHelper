@@ -11,7 +11,6 @@ import Main from './main';
 
 const App = () => (
       <div className='app'>
-        <h1>React Router Demo</h1>
         <NaviBar />
         <Main />
       </div>

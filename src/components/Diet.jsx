@@ -215,8 +215,12 @@ export default class Diet extends Component {
 
           <ProgressBar className='progressBar' now={this.state.progress} label={`${this.state.progress}%`} />
 
-          <Link style={{'display': 'block', 'text-align': 'right'}} to={'/calorie_history'}>
-              Calorie intake history</Link>
+          <Button
+            className='submitButton calHistoryBtn'
+            onClick={() => browserHistory.push('/calorie_history')}
+            >
+            Go to calorie intake history
+          </Button>
 
           <hr />
 

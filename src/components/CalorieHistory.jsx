@@ -5,6 +5,7 @@ import LineChart from 'react-linechart';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './css/CalorieHistory.css';
+import './css/LineChart.css';
 
 export default class CalorieHistory extends Component {
   constructor(){
@@ -56,6 +57,9 @@ export default class CalorieHistory extends Component {
           });
 
         }
+        else {
+          browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
+        }
 
       });
 
@@ -72,14 +76,17 @@ export default class CalorieHistory extends Component {
           <hr />
 
           <h2>Last 10 days</h2>
-          <LineChart
-              width={'600%'}
-              height={'400%'}
+            <LineChart
+              width={600}
+              height={400}
               margins={{top: 50, right: 20, bottom: 40, left: 80}}
               xLabel='Day'
               yLabel='Calorie intake'
+              interpolate='linear'
+              hidePoints={true}
               data={this.state.calChartData}
-          />
+            />
+
 
           <hr />
 
@@ -91,7 +98,7 @@ export default class CalorieHistory extends Component {
                   return (
                     <div key={index} className='foodLog'>
                       <strong>{array.date}:</strong> {array.calories}
-                      <hr style={{width: '150px', 'margin-left': '0'}}/>
+                      <hr align='left' width='150px'/>
                     </div>
                   )
                 })

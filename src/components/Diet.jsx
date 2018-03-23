@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ProgressBar, FormControl, Button, Glyphicon, Modal, Alert } from 'react-bootstrap';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
 import './css/Diet.css';

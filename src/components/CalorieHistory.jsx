@@ -83,7 +83,7 @@ export default class CalorieHistory extends Component {
               xLabel='Day'
               yLabel='Calorie intake'
               interpolate='linear'
-              hidePoints={true}
+              onPointHover={(point) => `${this.state.calHistory[point.x].date}<br />${point.y} cals`}
               data={this.state.calChartData}
             />
 

@@ -13,7 +13,7 @@ export default class AboutUs extends Component {
 
     render() {
       return (
-        <div>
+        <main>
           <NaviBar />
           <div className='content-container'>
 
@@ -37,7 +37,7 @@ export default class AboutUs extends Component {
           </p>
 
         </div>
-        </div>
+        </main>
       )
     }
 

@@ -32,28 +32,27 @@ export default class CalorieHistory extends Component {
             this.setState({calHistory: calHistoryArray})
 
             // Input data to chart
-            let arrayTemp = calHistoryArray;
+            let chartArray = calHistoryArray;
             // If the array is more than 10, get the most recent 10 days
-            if(arrayTemp.length > 10) {
-              arrayTemp = arrayTemp.slice(arrayTemp.length - 10, arrayTemp.length)
+            if(chartArray.length > 10) {
+              chartArray = chartArray.slice(chartArray.length - 10, chartArray.length)
             }
-            this.setState({calChartData : [
-              {
+            this.setState({chartArray: chartArray,
+              calChartData : [{
                   color: "#00C853",
                   points: [
-                    {x: 1, y: arrayTemp[0].calories},
-                    {x: 2, y: arrayTemp[1].calories},
-                    {x: 3, y: arrayTemp[2].calories},
-                    {x: 4, y: arrayTemp[3].calories},
-                    {x: 5, y: arrayTemp[4].calories},
-                    {x: 6, y: arrayTemp[5].calories},
-                    {x: 7, y: arrayTemp[6].calories},
-                    {x: 8, y: arrayTemp[7].calories},
-                    {x: 9, y: arrayTemp[8].calories},
-                    {x: 10, y: arrayTemp[9].calories},
-                  ]
-              }
-          ]})
+                    {x: 1, y: chartArray[0].calories},
+                    {x: 2, y: chartArray[1].calories},
+                    {x: 3, y: chartArray[2].calories},
+                    {x: 4, y: chartArray[3].calories},
+                    {x: 5, y: chartArray[4].calories},
+                    {x: 6, y: chartArray[5].calories},
+                    {x: 7, y: chartArray[6].calories},
+                    {x: 8, y: chartArray[7].calories},
+                    {x: 9, y: chartArray[8].calories},
+                    {x: 10, y: chartArray[9].calories}
+                  ]}]
+                })
           });
 
         }
@@ -67,7 +66,7 @@ export default class CalorieHistory extends Component {
 
     render() {
       return (
-        <div>
+        <main>
           <NaviBar />
           <div className='content-container'>
 
@@ -83,10 +82,9 @@ export default class CalorieHistory extends Component {
               xLabel='Day'
               yLabel='Calorie intake'
               interpolate='linear'
-              onPointHover={(point) => `${this.state.calHistory[point.x].date}<br />${point.y} cals`}
+              onPointHover={(point) => `${this.state.chartArray[point.x - 1].date}<br />${point.y} cals`}
               data={this.state.calChartData}
             />
-
 
           <hr />
 
@@ -107,7 +105,7 @@ export default class CalorieHistory extends Component {
           </div>
 
         </div>
-        </div>
+        </main>
       )
     }
 

@@ -41,7 +41,7 @@ export default class NaviBar extends Component {
     render() {
       return (
 
-        <div>
+        <nav>
           <Navbar fluid>
 
             <Navbar.Header>
@@ -76,7 +76,7 @@ export default class NaviBar extends Component {
             </Navbar.Collapse>
 
           </Navbar>
-        </div>
+        </nav>
 
       )
     }

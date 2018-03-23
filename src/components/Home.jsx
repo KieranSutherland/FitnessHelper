@@ -15,7 +15,7 @@ export default class Home extends Component {
 render() {
   return(
 
-    <div>
+    <main>
       <NaviBar />
       <Jumbotron className='jumbo'>
         <h1>Welcome to <a>FitnessHelper</a></h1>
@@ -24,7 +24,7 @@ render() {
         </p>
       </Jumbotron>
 
-    </div>
+    </main>
 
 
 

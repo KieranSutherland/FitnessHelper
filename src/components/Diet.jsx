@@ -199,7 +199,7 @@ export default class Diet extends Component {
 
     render() {
       return (
-        <div>
+        <main>
           <NaviBar />
           <div className='content-container'>
 
@@ -318,7 +318,7 @@ export default class Diet extends Component {
           </Modal>
 
           </div>
-        </div>
+        </main>
       )
     }
 

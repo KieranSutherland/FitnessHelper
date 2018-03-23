@@ -90,7 +90,7 @@ export default class Register extends Component {
     render() {
       return (
 
-        <div>
+        <main>
           <NaviBar />
         <div className='container'>
 
@@ -191,7 +191,7 @@ export default class Register extends Component {
 
         </div>
 
-      </div>
+      </main>
       )
     }
   }

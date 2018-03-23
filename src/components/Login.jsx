@@ -52,7 +52,7 @@ export default class Login extends Component {
     render() {
       return (
 
-        <div>
+        <main>
           <NaviBar />
 
             <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
@@ -128,7 +128,7 @@ export default class Login extends Component {
 
         </div>
 
-        </div>
+        </main>
       )
     }
   }

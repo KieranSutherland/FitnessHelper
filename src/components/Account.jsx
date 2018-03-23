@@ -141,7 +141,7 @@ export default class Account extends Component {
 
     render() {
       return (
-        <div>
+        <main>
           <NaviBar />
 
           <div className='container'>
@@ -310,7 +310,7 @@ export default class Account extends Component {
 
         </div>
 
-      </div>
+      </main>
       )
     }
 

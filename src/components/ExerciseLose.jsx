@@ -61,7 +61,7 @@ export default class ExerciseLose extends Component {
 
       return (
 
-      <div>
+      <main>
         <NaviBar />
 
           <div className='content-container'>
@@ -224,7 +224,7 @@ export default class ExerciseLose extends Component {
 
         </div>
 
-      </div>
+      </main>
 
       )
     }

@@ -13,7 +13,7 @@ export default class ContactUs extends Component {
 
     render() {
       return (
-        <div>
+        <main>
           <NaviBar />
           <div className='content-container'>
 
@@ -25,7 +25,7 @@ export default class ContactUs extends Component {
           <p><strong>Address: </strong>Gateway House, Leicester, LE1 9BH</p>
 
         </div>
-        </div>
+        </main>
       )
     }
 

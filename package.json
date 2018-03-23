@@ -1,6 +1,11 @@
 {
   "name": "fitness_helper",
   "version": "0.1.0",
+  "license": "UNLICENSED",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/KieranSutherland/FitnessHelper"
+},
   "private": false,
   "homepage": "https://fitnesshelper-6cb4c.firebaseapp.com",
   "dependencies": {

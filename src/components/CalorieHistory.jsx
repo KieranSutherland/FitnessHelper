@@ -33,26 +33,36 @@ export default class CalorieHistory extends Component {
 
             // Input data to chart
             let chartArray = calHistoryArray;
-            // If the array is more than 10, get the most recent 10 days
+            // If the array is more than 10, get the most recent 10 days and display in chart
             if(chartArray.length > 10) {
               chartArray = chartArray.slice(chartArray.length - 10, chartArray.length)
             }
+
+            // Convert to format for date to be used as x axis
+            let chartDate = [];
+            for (let i = 0; i < 10; i++) {
+              let day = chartArray[i].date.slice(0,2)
+              let month = chartArray[i].date.slice(3,5)
+              let year = '20' + chartArray[i].date.slice(6,8)
+              chartDate[i] = year + '-' + month + '-' + day
+            }
+
             this.setState({chartArray: chartArray,
               calChartData : [{
                   color: "#00C853",
                   points: [
-                    {x: 1, y: chartArray[0].calories},
-                    {x: 2, y: chartArray[1].calories},
-                    {x: 3, y: chartArray[2].calories},
-                    {x: 4, y: chartArray[3].calories},
-                    {x: 5, y: chartArray[4].calories},
-                    {x: 6, y: chartArray[5].calories},
-                    {x: 7, y: chartArray[6].calories},
-                    {x: 8, y: chartArray[7].calories},
-                    {x: 9, y: chartArray[8].calories},
-                    {x: 10, y: chartArray[9].calories}
-                  ]}]
-                })
+                    {x: chartDate[0], y: chartArray[0].calories},
+                    {x: chartDate[1], y: chartArray[1].calories},
+                    {x: chartDate[2], y: chartArray[2].calories},
+                    {x: chartDate[3], y: chartArray[3].calories},
+                    {x: chartDate[4], y: chartArray[4].calories},
+                    {x: chartDate[5], y: chartArray[5].calories},
+                    {x: chartDate[6], y: chartArray[6].calories},
+                    {x: chartDate[7], y: chartArray[7].calories},
+                    {x: chartDate[8], y: chartArray[8].calories},
+                    {x: chartDate[9], y: chartArray[9].calories}
+                ]}]
+              })
           });
 
         }
@@ -74,15 +84,16 @@ export default class CalorieHistory extends Component {
           <h1>Calorie History</h1>
           <hr />
 
-          <h2>Last 10 days</h2>
+          <h2>Last 10 recorded days</h2>
             <LineChart
               width={600}
               height={400}
               margins={{top: 50, right: 20, bottom: 40, left: 80}}
-              xLabel='Day'
+              xLabel='Date'
               yLabel='Calorie intake'
               interpolate='linear'
-              onPointHover={(point) => `${this.state.chartArray[point.x - 1].date}<br />${point.y} cals`}
+              isDate={true}
+              onPointHover={(point) => `${point.y} <br /> Calories`}
               data={this.state.calChartData}
             />
 

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Tabs, Tab, Table, Modal, Button } from 'react-bootstrap';
-import { browserHistory } from 'react-router';
-import { firebase } from '../firebase';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import './css/Exercise.css';
@@ -132,6 +130,9 @@ export default class ExerciseLose extends Component {
             </Tab>
 
           </Tabs>
+
+          <hr />
+
           <h3>Tutorials</h3>
           <div className='tutorials-container'>
             <p><a onClick={ () => this.setState({
@@ -182,6 +183,8 @@ export default class ExerciseLose extends Component {
               <Button onClick={() => this.setState({ show: false })}>Close</Button>
             </Modal.Footer>
           </Modal>
+
+          <hr />
 
           <h3>Advice</h3>
           <p>

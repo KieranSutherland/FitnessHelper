@@ -51,12 +51,12 @@ export default class Diet extends Component {
               this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
 
               //Calculate calories needed
-              var bmr = 10 * parseInt(snapshot.val().weight , 10 )
-               + 6.25 * parseInt(snapshot.val().height , 10 )
-                - 5 * parseInt(calculatedAge , 10 )
+              var bmr = 10 * parseInt(snapshot.val().weight , 10)
+               + 6.25 * parseInt(snapshot.val().height , 10)
+                - 5 * parseInt(calculatedAge , 10)
                  + ((snapshot.val().gender === 'male') ? 5 : -161);
 
-              //Add or substract calories needed to gain or lose 1lb per week based on fitnessChoice
+              //Re-calculate calories needed to gain or lose 1lb per week based on fitnessChoice
               var calGoal = Math.round((snapshot.val().fitnessChoice === 'gain') ? ((bmr * 1.55) + 500) : ((bmr * 1.55) - 500)); //1.55 for 3-5 days exercise per week
               this.setState({caloriesGoal: calGoal})
 
@@ -230,7 +230,6 @@ export default class Diet extends Component {
               type="text"
               placeholder='Food'
               value={this.state.foodTextField}
-              style={{margin: '0px 15px 0px 0px'}}
               onKeyPress={e => {if(e.key === 'Enter') {this.addFood()}}} //Login if Enter key pressed
               onChange={e => this.setState({foodTextField: e.target.value})}
             />
@@ -238,6 +237,7 @@ export default class Diet extends Component {
               type="text"
               placeholder='Calories'
               value={this.state.caloriesTextField}
+              style={{'margin-left': '15px'}}
               onKeyPress={e => {if(e.key === 'Enter') {this.addFood()}}} //Login if Enter key pressed
               onChange={e => this.setState({caloriesTextField: e.target.value})}
             />

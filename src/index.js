@@ -6,8 +6,6 @@ import { Router, Route, browserHistory } from 'react-router';
 import Home from './components/Home';
 import Diet from './components/Diet';
 import Exercise from './components/Exercise';
-import ExerciseGain from './components/ExerciseGain';
-import ExerciseLose from './components/ExerciseLose';
 import CalorieHistory from './components/CalorieHistory';
 
 import Login from './components/Login';
@@ -26,13 +24,13 @@ import AboutUs from './components/AboutUs';
 ReactDOM.render(
 
     <Router path="/" history={browserHistory}>
-        <Route path="/home" component={Home} />
-        <Route path="/diet" component={Diet} />
-        <Route path="/exercise" component={Exercise} />
-        <Route path="/calorie_history" component={CalorieHistory} />
-
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+
+        <Route path="/home" component={Home} />
+        <Route path="/diet" component={Diet} />
+        <Route path="/calorie_history" component={CalorieHistory} />
+        <Route path="/exercise" component={Exercise} />
 
         <Route path="/account" component={Account} />
         <Route path="/contact_us" component={ContactUs} />

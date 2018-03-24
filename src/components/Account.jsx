@@ -9,14 +9,6 @@ export default class Account extends Component {
   constructor(){
     super();
     this.state = {
-      email: '',
-      fitnessChoice: '',
-      dob: '',
-      gender: '',
-      height: '',
-      weight: '',
-      password1 : '',
-      password2 : '',
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',

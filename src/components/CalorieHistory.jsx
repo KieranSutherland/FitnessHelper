@@ -12,7 +12,7 @@ export default class CalorieHistory extends Component {
     super();
     this.state = {
       calHistory: [],
-      calChartData: []
+      calChartData: [],
     }
 
     }
@@ -40,29 +40,29 @@ export default class CalorieHistory extends Component {
 
             // Convert to format for date to be used as x axis
             let chartDate = [];
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < chartArray.length; i++) {
               let day = chartArray[i].date.slice(0,2)
               let month = chartArray[i].date.slice(3,5)
               let year = '20' + chartArray[i].date.slice(6,8)
               chartDate[i] = year + '-' + month + '-' + day
             }
 
+            // To allow for less than 10 in the array
+            let pointsTemp = [];
+            for (var i = 0; i < chartArray.length; i++) {
+                pointsTemp.push({
+                    x: chartDate[i],
+                    y: chartArray[i].calories
+                });
+            }
+
             this.setState({chartArray: chartArray,
               calChartData : [{
                   color: "#00C853",
-                  points: [
-                    {x: chartDate[0], y: chartArray[0].calories},
-                    {x: chartDate[1], y: chartArray[1].calories},
-                    {x: chartDate[2], y: chartArray[2].calories},
-                    {x: chartDate[3], y: chartArray[3].calories},
-                    {x: chartDate[4], y: chartArray[4].calories},
-                    {x: chartDate[5], y: chartArray[5].calories},
-                    {x: chartDate[6], y: chartArray[6].calories},
-                    {x: chartDate[7], y: chartArray[7].calories},
-                    {x: chartDate[8], y: chartArray[8].calories},
-                    {x: chartDate[9], y: chartArray[9].calories}
-                ]}]
+                  points: pointsTemp
+                }]
               })
+
           });
 
         }
@@ -85,6 +85,9 @@ export default class CalorieHistory extends Component {
           <hr />
 
           <h2>Last 10 recorded days</h2>
+          <a
+            onClick={() => console.log(this.state.calChartData[0].points[0].x)}
+            >check</a>
             <LineChart
               width={600}
               height={400}

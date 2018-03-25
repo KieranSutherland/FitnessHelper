@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { firebase } from './firebase';
 import { Router, Route, browserHistory } from 'react-router';
 
 import Home from './components/Home';
 import Diet from './components/Diet';
-import Exercise from './components/Exercise';
 import CalorieHistory from './components/CalorieHistory';
+import Exercise from './components/Exercise';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -14,12 +13,6 @@ import Register from './components/Register';
 import Account from './components/Account';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
-
-  firebase.auth().onAuthStateChanged(user => {
-    if(!user) { // If user has not signed in, re-direct to login page
-        browserHistory.replace('/login');
-      }
-  })
 
 ReactDOM.render(
 

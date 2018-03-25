@@ -50,9 +50,26 @@ export default class Register extends Component {
         }
     }
 
-    submitClicked() { // Check all information has been entered
-      if(this.state.fitnessChoice === '' || this.state.dob === '' || this.state.height === '' || this.state.weight === '' || this.state.gender === '') {
-        this.setState({error: {message: 'Please enter all information'} })
+    submitClicked() {
+      // Check all information has been entered, if not specify which textfield hasn't been entered
+      if(this.state.dob === '') {
+        this.setState({error: {message: 'Please enter your Date of Birth'} })
+        this.setState({alertStyle: 'visible'});
+      }
+      else if(this.state.gender === '') {
+        this.setState({error: {message: 'Please enter your gender'} })
+        this.setState({alertStyle: 'visible'});
+      }
+      else if(this.state.height === '') {
+        this.setState({error: {message: 'Please enter all height'} })
+        this.setState({alertStyle: 'visible'});
+      }
+      else if(this.state.height === '') {
+        this.setState({error: {message: 'Please enter your height'} })
+        this.setState({alertStyle: 'visible'});
+      }
+      else if(this.state.weight === '') {
+        this.setState({error: {message: 'Please enter your weight'} })
         this.setState({alertStyle: 'visible'});
       }
       else { // Else continue with authentication of email and password

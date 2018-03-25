@@ -32,10 +32,10 @@ export default class Diet extends Component {
           if(user) {
             firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
               // Calculate age
-              var today = new Date();
-              var birthDate = new Date(snapshot.val() && snapshot.val().dob);
-              var calculatedAge = today.getFullYear() - birthDate.getFullYear();
-              var m = today.getMonth() - birthDate.getMonth();
+              let today = new Date();
+              let birthDate = new Date(snapshot.val() && snapshot.val().dob);
+              let calculatedAge = today.getFullYear() - birthDate.getFullYear();
+              let m = today.getMonth() - birthDate.getMonth();
               if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
               {calculatedAge--;}
 
@@ -51,17 +51,17 @@ export default class Diet extends Component {
               this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
 
               //Calculate calories needed
-              var bmr = 10 * parseInt(snapshot.val().weight , 10)
+              let bmr = 10 * parseInt(snapshot.val().weight , 10)
                + 6.25 * parseInt(snapshot.val().height , 10)
                 - 5 * parseInt(calculatedAge , 10)
                  + ((snapshot.val().gender === 'male') ? 5 : -161);
 
               //Re-calculate calories needed to gain or lose 1lb per week based on fitnessChoice
-              var calGoal = Math.round((snapshot.val().fitnessChoice === 'gain') ? ((bmr * 1.55) + 500) : ((bmr * 1.55) - 500)); //1.55 for 3-5 days exercise per week
+              let calGoal = Math.round((snapshot.val().fitnessChoice === 'gain') ? ((bmr * 1.55) + 500) : ((bmr * 1.55) - 500)); //1.55 for 3-5 days exercise per week
               this.setState({caloriesGoal: calGoal})
 
               //Update progress bar with calories eaten for that day
-              var newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
+              let newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
               this.setState({progress: newProgress});
 
               //Make sure progress can't go past 100%
@@ -100,8 +100,8 @@ export default class Diet extends Component {
         if(this.state.caloriesTextField !== '' && this.state.foodTextField !== '') {
           //Update states
           //Need to delcare newCal state so that progressBar and database update instantly instead of next button click (same for newProgress)
-          var newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.caloriesTextField , 10 ))
-          var newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
+          let newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.caloriesTextField , 10 ))
+          let newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
           this.setState({calories: newCal});
           this.setState({progress: newProgress});
           //Make sure progress can't go past 100%
@@ -124,6 +124,11 @@ export default class Diet extends Component {
             this.setState({ showEaten: true }); // Show warning that user has eaten too much
           }
 
+          // Empty textfields
+          this.setState({caloriesTextField: '', foodTextField: ''});
+          // Put text focus back on food input field
+          document.getElementById('foodTextField').focus();
+
         }
 
       }
@@ -133,18 +138,18 @@ export default class Diet extends Component {
 
         let i = 0
         dataLink.once('value', snapshot => {
-          var removedCals = 0;
+          let removedCals = 0;
           snapshot.forEach( snap => {
             if(i === index) {
               removedCals = snap.val().calories
-              //If index matches the index of the log chosen to be removed, remove the child node
+              //If index matches the index of the log chosen to be removed, remove it
               snap.ref.remove();
             }
             i++;
           })
           // Update new calories and progressBar values
-          var newCal = (parseInt(this.state.calories , 10 )) - removedCals
-          var newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
+          let newCal = (parseInt(this.state.calories , 10 )) - removedCals
+          let newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
           this.setState({calories: newCal});
           this.setState({progress: newProgress});
           //Make sure progress can't go past 100%
@@ -165,16 +170,16 @@ export default class Diet extends Component {
 
         //Push day to database
         if(firebase.auth()) {
-          var today = new Date();
-          var day = today.getDate();
-          var month = today.getMonth();
+          let today = new Date();
+          let day = today.getDate();
+          let month = today.getMonth();
           if(today.getMonth().toString().length === 1) {
             month = '0' + today.getMonth()
           }
           if(today.getDate().toString().length === 1) {
             day = '0' + today.getDate()
           }
-          var todayString =  day + '/'+ month + '/' + today.getFullYear().toString().slice(2,4)
+          let todayString =  day + '/'+ month + '/' + today.getFullYear().toString().slice(2,4)
           firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/calHistory').push({
             date: todayString,
             calories: this.state.calories
@@ -225,11 +230,13 @@ export default class Diet extends Component {
           <hr />
 
           <h2>Add eaten food</h2>
-          <div className='inputLine addCalories'>
+          <div className='inputLine small'>
             <FormControl
+              id='foodTextField'
               type="text"
               placeholder='Food'
               value={this.state.foodTextField}
+              style={{margin: '0px 15px 0px 0px'}}
               onKeyPress={e => {if(e.key === 'Enter') {this.addFood()}}} //Login if Enter key pressed
               onChange={e => this.setState({foodTextField: e.target.value})}
             />
@@ -237,7 +244,6 @@ export default class Diet extends Component {
               type="text"
               placeholder='Calories'
               value={this.state.caloriesTextField}
-              style={{'margin-left': '15px'}}
               onKeyPress={e => {if(e.key === 'Enter') {this.addFood()}}} //Login if Enter key pressed
               onChange={e => this.setState({caloriesTextField: e.target.value})}
             />
@@ -270,7 +276,9 @@ export default class Diet extends Component {
               {
                 this.state.foodLog.map((array, index) => {
                   return (
-                    <div key={index} className='foodLog'><strong>{array.food}</strong> - {array.calories} <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" /></div>
+                    <div key={index} className='foodLog'>
+                      <strong>{array.food}</strong> - {array.calories} <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" />
+                    </div>
                   )
                 })
               }

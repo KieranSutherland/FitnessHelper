@@ -42,7 +42,7 @@ export default class NaviBar extends Component {
 
             <Navbar.Header>
               <Navbar.Brand componentClass='span'>
-                <Link className='link header' to={'/home'}>FitnessHelper</Link>
+                <Link className='link header' to={'/'}>FitnessHelper</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

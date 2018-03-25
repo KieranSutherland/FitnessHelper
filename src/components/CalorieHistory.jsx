@@ -13,6 +13,7 @@ export default class CalorieHistory extends Component {
     this.state = {
       calHistory: [],
       calChartData: [],
+      recordedDays: '10'
     }
 
     }
@@ -38,7 +39,7 @@ export default class CalorieHistory extends Component {
               chartArray = chartArray.slice(chartArray.length - 10, chartArray.length)
             }
 
-            // Convert to format for date to be used as x axis
+            // Convert to YYYY-MM-DD format for date to be used as x axis
             let chartDate = [];
             for (let i = 0; i < chartArray.length; i++) {
               let day = chartArray[i].date.slice(0,2)
@@ -49,14 +50,15 @@ export default class CalorieHistory extends Component {
 
             // To allow for less than 10 in the array
             let pointsTemp = [];
-            for (var i = 0; i < chartArray.length; i++) {
-                pointsTemp.push({
+            for (let i = 0; i < chartArray.length; i++) {
+                pointsTemp[i] = {
                     x: chartDate[i],
                     y: chartArray[i].calories
-                });
+                };
             }
 
             this.setState({chartArray: chartArray,
+              recordedDays: chartArray.length, // In case there are less than 10 days
               calChartData : [{
                   color: "#00C853",
                   points: pointsTemp
@@ -74,6 +76,23 @@ export default class CalorieHistory extends Component {
 
     }
 
+    removeClicked(index) {
+      
+      const dataLink = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/calHistory')
+
+      let i = 0
+      dataLink.once('value', snapshot => {
+        snapshot.forEach( snap => {
+          if(i === index) {
+            //If index matches the index of the log chosen to be removed, remove it
+            snap.ref.remove();
+          }
+          i++;
+        })
+      })
+
+    }
+
     render() {
       return (
         <main>
@@ -84,10 +103,8 @@ export default class CalorieHistory extends Component {
           <h1>Calorie History</h1>
           <hr />
 
-          <h2>Last 10 recorded days</h2>
-          <a
-            onClick={() => console.log(this.state.calChartData[0].points[0].x)}
-            >check</a>
+          <h2>Last {this.state.recordedDays} recorded days</h2>
+
             <LineChart
               width={600}
               height={400}
@@ -109,7 +126,7 @@ export default class CalorieHistory extends Component {
                 this.state.calHistory.map((array, index) => {
                   return (
                     <div key={index} className='foodLog'>
-                      <strong>{array.date}:</strong> {array.calories}
+                      <strong>{array.date}:</strong> {array.calories}  <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" />
                       <hr align='left' width='150px'/>
                     </div>
                   )

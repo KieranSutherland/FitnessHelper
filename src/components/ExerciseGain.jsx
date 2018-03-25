@@ -3,6 +3,7 @@ import { Tabs, Tab, Modal, Button } from 'react-bootstrap';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import './css/Exercise.css';
+import ExerciseCalculators from './ExerciseCalculators';
 import DeadliftWorkout from './workouts/DeadliftWorkout';
 import BenchWorkout from './workouts/BenchWorkout';
 
@@ -115,6 +116,10 @@ export default class ExerciseGain extends Component {
               <Button onClick={() => this.setState({ show: false })}>Close</Button>
             </Modal.Footer>
           </Modal>
+
+          <hr />
+
+          <ExerciseCalculators />
 
           <hr />
 

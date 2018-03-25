@@ -23,11 +23,11 @@ import AboutUs from './components/AboutUs';
 
 ReactDOM.render(
 
-    <Router path="/" history={browserHistory}>
+    <Router history={browserHistory}>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
 
-        <Route path="/home" component={Home} />
+        <Route path="/" component={Home} />
         <Route path="/diet" component={Diet} />
         <Route path="/calorie_history" component={CalorieHistory} />
         <Route path="/exercise" component={Exercise} />

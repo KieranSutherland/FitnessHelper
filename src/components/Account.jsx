@@ -119,8 +119,8 @@ export default class Account extends Component {
     }
 
     deleteAccountClicked() {
-      var user = firebase.auth().currentUser;
-      var ref = firebase.database().ref(
+      let user = firebase.auth().currentUser;
+      let ref = firebase.database().ref(
         "/users/" + user.uid);
       user.delete().then( () => {
         // User deleted.

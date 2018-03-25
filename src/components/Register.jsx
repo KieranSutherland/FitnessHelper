@@ -78,8 +78,8 @@ export default class Register extends Component {
             }).catch(error => {
               console.log('Error sending email verification')
             });
-            // Because user has logged in, re-direct to home page
-            browserHistory.push('/home');
+            // Because user has logged in, re-direct to diet page
+            browserHistory.push('/diet');
           }
         });
       }

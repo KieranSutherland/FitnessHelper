@@ -32,10 +32,10 @@ export default class Login extends Component {
         this.setState({error});
         this.setState({alertStyle: 'visible'});
       });
-      // If user has successfully logged in, re-direct to home page
+      // If user has successfully logged in, re-direct to diet page
       firebase.auth().onAuthStateChanged(user => {
         if(user) {
-          browserHistory.push('/home');
+          browserHistory.push('/diet');
           }
         });
     }

@@ -78,12 +78,25 @@ export default class Account extends Component {
     }
 
     submitClicked() {
-      if(this.state.fitnessChoice === '' || this.state.dob === '' || //Check if any values have been removed
-      this.state.height === '' || this.state.weight === '' || this.state.calories === '') {
-        this.setState({alert: {message: 'Please enter all information'}, alertType: 'warning' })
+      //Either way, there will need to be some alert to say if it was a success or fail
+      this.setState({alertStyle: 'visible'});
+
+      if(this.state.dob === '') {
+        this.setState({alert: {message: 'Please enter your Date of Birth'}, alertType: 'warning' })
+      }
+      else if(this.state.gender === '') {
+        this.setState({alert: {message: 'Please enter your gender'}, alertType: 'warning' })
+      }
+      else if(this.state.height === '') {
+        this.setState({alert: {message: 'Please enter your height'}, alertType: 'warning' })
+      }
+      else if(this.state.height === '') {
+        this.setState({alert: {message: 'Please enter your height'}, alertType: 'warning' })
+      }
+      else if(this.state.weight === '') {
+        this.setState({alert: {message: 'Please enter your weight'}, alertType: 'warning' })
       }
       else {
-
         firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
           firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
             email: this.state.email,
@@ -100,7 +113,6 @@ export default class Account extends Component {
           })
 
       }
-      this.setState({alertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
 
     }
 
@@ -115,7 +127,8 @@ export default class Account extends Component {
           this.setState({passwordAlert: error, passwordAlertType: 'warning'});
         });
       }
-        this.setState({passwordAlertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
+      //Either way, there will need to be some alert to say if it was a success or fail
+      this.setState({passwordAlertStyle: 'visible'});
     }
 
     deleteAccountClicked() {
@@ -136,7 +149,7 @@ export default class Account extends Component {
         <main>
           <NaviBar />
 
-          <div className='container'>
+          <div className='form-container'>
 
             <h1>Account</h1>
 
@@ -174,7 +187,7 @@ export default class Account extends Component {
             <FormControl
               type="text"
               value={this.state.height}
-              placeholder="Heigh (cm)"
+              placeholder="Height (cm)"
               onChange={ e => this.setState({ height : e.target.value }) }
             />
           </div>
@@ -213,7 +226,7 @@ export default class Account extends Component {
             <br />
             <Button
               className='submitButton'
-              onClick={() => this.submitClicked()}
+              onClick={this.submitClicked.bind(this)}
               >
               Save Changes
             </Button>

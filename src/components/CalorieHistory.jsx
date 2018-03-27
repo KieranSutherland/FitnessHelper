@@ -13,12 +13,23 @@ export default class CalorieHistory extends Component {
     this.state = {
       calHistory: [],
       calChartData: [],
-      recordedDays: '10'
+      recordedDays: '10',
+      chartWidth: 0,
+      chartHeight: 0,
+      chartLeftMargin: 0
     }
 
     }
 
     componentDidMount() {
+
+      //Resize chart is screen is small
+      if(window.innerWidth <= 650) {
+        this.setState({chartWidth: 300, chartHeight: 240, chartLeftMargin: 45})
+      }
+      else {
+        this.setState({chartWidth: 600, chartHeight: 400, chartLeftMargin: 80})
+      }
 
       firebase.auth().onAuthStateChanged(user => {
 
@@ -77,7 +88,7 @@ export default class CalorieHistory extends Component {
     }
 
     removeClicked(index) {
-      
+
       const dataLink = firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/calHistory')
 
       let i = 0
@@ -106,9 +117,9 @@ export default class CalorieHistory extends Component {
           <h2>Last {this.state.recordedDays} recorded days</h2>
 
             <LineChart
-              width={600}
-              height={400}
-              margins={{top: 50, right: 20, bottom: 40, left: 80}}
+              width={this.state.chartWidth}
+              height={this.state.chartHeight}
+              margins={{top: 0, right: 0, bottom: 40, left: this.state.chartLeftMargin}}
               xLabel='Date'
               yLabel='Calorie intake'
               interpolate='linear'
@@ -126,7 +137,7 @@ export default class CalorieHistory extends Component {
                 this.state.calHistory.map((array, index) => {
                   return (
                     <div key={index} className='foodLog'>
-                      <strong>{array.date}:</strong> {array.calories}  <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" />
+                      <strong>{array.date}:</strong> {array.calories} <Glyphicon onClick={() =>this.removeClicked(index)} className='removeGlyph' glyph="remove" />
                       <hr align='left' width='150px'/>
                     </div>
                   )

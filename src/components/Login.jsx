@@ -82,7 +82,7 @@ export default class Login extends Component {
               </Modal.Footer>
             </Modal>
 
-        <div className='container'>
+        <div className='form-container'>
 
           <h1>Login</h1>
           <hr />

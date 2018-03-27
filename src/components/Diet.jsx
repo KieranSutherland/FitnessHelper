@@ -70,12 +70,12 @@ export default class Diet extends Component {
               }
             });
 
+            this.updateFoodLog();
+
             }
             else {
               browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
             }
-
-            this.updateFoodLog();
 
         });
 

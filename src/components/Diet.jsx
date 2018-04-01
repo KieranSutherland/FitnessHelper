@@ -3,6 +3,7 @@ import { ProgressBar, FormControl, Button, Glyphicon, Modal, Alert } from 'react
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
+import Loading from './Loading';
 import './css/Diet.css';
 
 export default class Diet extends Component {
@@ -18,7 +19,8 @@ export default class Diet extends Component {
       resetDayAlertStyle : 'hidden',
       resetDayAlert: {
         message: ''
-      }
+      },
+      isLoading: true
     }
 
     }
@@ -45,7 +47,8 @@ export default class Diet extends Component {
                 age: calculatedAge,
                 height: (snapshot.val() && snapshot.val().height),
                 weight: (snapshot.val() && snapshot.val().weight),
-                calories: (snapshot.val() && snapshot.val().calories)
+                calories: (snapshot.val() && snapshot.val().calories),
+                isLoading: false
               });
               //Set button of fitnessChoice to the correct one
               this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
@@ -203,6 +206,10 @@ export default class Diet extends Component {
       }
 
     render() {
+      if(this.state.isLoading === true)  {
+        return ( <Loading /> );
+      }
+      else {
       return (
         <main>
           <NaviBar />
@@ -328,6 +335,7 @@ export default class Diet extends Component {
           </div>
         </main>
       )
+    }
     }
 
   }

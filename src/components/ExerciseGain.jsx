@@ -39,6 +39,7 @@ export default class ExerciseGain extends Component {
 
       return (
 
+        <main>
           <div className='content-container'>
 
           <h1>Exercise</h1>
@@ -141,6 +142,7 @@ export default class ExerciseGain extends Component {
           </p>
 
         </div>
+      </main>
 
       )
     }

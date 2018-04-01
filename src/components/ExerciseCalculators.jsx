@@ -46,7 +46,7 @@ export default class ExerciseCalculators extends Component {
 
       return (
 
-          <main>
+          <section>
 
           <h2>Calculators</h2>
 
@@ -104,7 +104,7 @@ export default class ExerciseCalculators extends Component {
             />
           </div>
 
-        </main>
+        </section>
 
       )
     }

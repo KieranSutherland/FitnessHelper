@@ -4,6 +4,7 @@ import { Link, browserHistory } from 'react-router';
 import LineChart from 'react-linechart';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
+import Loading from './Loading';
 import './css/CalorieHistory.css';
 import './css/LineChart.css';
 
@@ -16,24 +17,26 @@ export default class CalorieHistory extends Component {
       recordedDays: '10',
       chartWidth: 0,
       chartHeight: 0,
-      chartLeftMargin: 0
+      chartLeftMargin: 0,
+      isLoading: true
     }
 
     }
 
     componentDidMount() {
 
-      //Resize chart is screen is small
-      if(window.innerWidth <= 650) {
-        this.setState({chartWidth: 300, chartHeight: 240, chartLeftMargin: 45})
-      }
-      else {
-        this.setState({chartWidth: 600, chartHeight: 400, chartLeftMargin: 80})
-      }
-
       firebase.auth().onAuthStateChanged(user => {
 
         if(user) {
+
+          //Resize chart is screen is small
+          if(window.innerWidth <= 650) {
+            this.setState({chartWidth: 300, chartHeight: 240, chartLeftMargin: 45})
+          }
+          else {
+            this.setState({chartWidth: 600, chartHeight: 400, chartLeftMargin: 80})
+          }
+
           //Update food log
           firebase.database().ref('users/' + firebase.auth().currentUser.uid).child('calHistory').on('value', snapshot => {
             let calHistoryArray = [];
@@ -73,7 +76,8 @@ export default class CalorieHistory extends Component {
               calChartData : [{
                   color: "#00C853",
                   points: pointsTemp
-                }]
+                }],
+                isLoading: false
               })
 
           });
@@ -105,6 +109,10 @@ export default class CalorieHistory extends Component {
     }
 
     render() {
+      if(this.state.isLoading === true)  {
+        return ( <Loading /> );
+      }
+      else {
       return (
         <main>
           <NaviBar />
@@ -149,6 +157,7 @@ export default class CalorieHistory extends Component {
         </div>
         </main>
       )
+    }
     }
 
   }

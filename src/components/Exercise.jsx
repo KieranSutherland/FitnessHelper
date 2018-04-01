@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
 import NaviBar from './NaviBar';
+import Loading from './Loading';
 import ExerciseGain from './ExerciseGain';
 import ExerciseLose from './ExerciseLose';
 
@@ -10,7 +11,7 @@ export default class Exercise extends Component {
   constructor(){
     super();
     this.state = {
-
+      isLoading: true
     }
 
     }
@@ -21,7 +22,10 @@ export default class Exercise extends Component {
 
         if(user) {
           firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
-            this.setState({fitnessChoice: snapshot.val() && snapshot.val().fitnessChoice})
+            this.setState({
+              fitnessChoice: snapshot.val() && snapshot.val().fitnessChoice,
+              isLoading: false
+            })
           });
           }
           else {
@@ -33,7 +37,10 @@ export default class Exercise extends Component {
 
     render() {
 
-      if(this.state.fitnessChoice === 'gain') {
+      if(this.state.isLoading === true)  {
+        return ( <Loading /> );
+      }
+      else if(this.state.fitnessChoice === 'gain') {
         return (
           <main>
             <NaviBar />

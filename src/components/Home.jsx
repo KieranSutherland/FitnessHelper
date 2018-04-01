@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
-import NaviBar from './NaviBar';
 import './css/Home.css';
 
 export default class Home extends Component {
@@ -16,7 +15,7 @@ render() {
   return(
 
     <main>
-      <NaviBar />
+
       <Jumbotron className='jumbo'>
         <h1>Welcome to <a>FitnessHelper</a></h1>
         <p>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { firebase } from '../firebase';
-import NaviBar from './NaviBar';
 import './css/RegisterLogin.css';
 
 export default class Register extends Component {
@@ -103,7 +103,7 @@ export default class Register extends Component {
       return (
 
         <main>
-          <NaviBar />
+
         <div className='form-container'>
 
           <h1>Register</h1>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NaviBar from './NaviBar';
 import './css/ContactUs.css';
 
 export default class ContactUs extends Component {
@@ -14,7 +13,6 @@ export default class ContactUs extends Component {
     render() {
       return (
         <main>
-          <NaviBar />
           <div className='content-container'>
 
           <h1>Contact Us</h1>

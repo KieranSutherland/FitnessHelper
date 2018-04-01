@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Alert, Modal } from 'react-bootstrap';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { firebase } from '../firebase';
-import NaviBar from './NaviBar';
 import './css/RegisterLogin.css';
 
 export default class Login extends Component {
@@ -35,7 +34,7 @@ export default class Login extends Component {
       // If user has successfully logged in, re-direct to diet page
       firebase.auth().onAuthStateChanged(user => {
         if(user) {
-          browserHistory.push('/diet');
+          this.props.history.push('/diet');
           }
         });
     }
@@ -53,34 +52,6 @@ export default class Login extends Component {
       return (
 
         <main>
-          <NaviBar />
-
-            <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
-              <Modal.Header closeButton>
-                <Modal.Title>Password Reset</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <h4>Enter email to send a password reset</h4>
-                <FormControl
-                  type="text"
-                  value={this.state.email} // Set value to whatever was already in the email textfield
-                  placeholder="Email"
-                  onChange={ e => this.setState({ email : e.target.value }) }
-                />
-                <Button
-                  className='sendPasswordResetButton'
-                  onClick={this.forgotPassword.bind(this)}
-                  >
-                  Send Email
-                </Button>
-                <Alert className='alert' bsStyle={this.state.resetAlertType} style={{visibility:this.state.resetAlertStyle}}>
-                  <strong>{this.state.resetAlertType}!</strong> {this.state.resetAlert.message}
-                </Alert>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={() => this.setState({ show: false })}>Close</Button>
-              </Modal.Footer>
-            </Modal>
 
         <div className='form-container'>
 
@@ -116,7 +87,7 @@ export default class Login extends Component {
               Login
             </Button>
           </div>
-          <div><Link to={'/register'}>Not a member? Register here</Link></div>
+          <div><Link to='/register'>Not a member? Register here</Link></div>
 
           <br /><br />
 
@@ -127,6 +98,33 @@ export default class Login extends Component {
           </div>
 
         </div>
+
+        <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
+          <Modal.Header closeButton>
+            <Modal.Title>Password Reset</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Enter email to send a password reset</h4>
+            <FormControl
+              type="text"
+              value={this.state.email} // Set value to whatever was already in the email textfield
+              placeholder="Email"
+              onChange={ e => this.setState({ email : e.target.value }) }
+            />
+            <Button
+              className='sendPasswordResetButton'
+              onClick={this.forgotPassword.bind(this)}
+              >
+              Send Email
+            </Button>
+            <Alert className='alert' bsStyle={this.state.resetAlertType} style={{visibility:this.state.resetAlertStyle}}>
+              <strong>{this.state.resetAlertType}!</strong> {this.state.resetAlert.message}
+            </Alert>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => this.setState({ show: false })}>Close</Button>
+          </Modal.Footer>
+        </Modal>
 
         </main>
       )

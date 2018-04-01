@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
-import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
-import NaviBar from './NaviBar';
 import Loading from './Loading';
 import './css/Account.css';
 
@@ -50,7 +48,7 @@ export default class Account extends Component {
           });
           }
           else {
-            browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
+            this.props.history.push('/login'); //User isn't allowed to access this page without being logged in first
           }
 
       });
@@ -154,7 +152,6 @@ export default class Account extends Component {
       else {
         return (
           <main>
-            <NaviBar />
 
             <div className='form-container'>
 

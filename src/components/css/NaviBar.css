@@ -17,7 +17,15 @@
 
 .link:hover {
   text-decoration: none;
-  color: #00C853;
+  color: #00C853 !important;
+}
+
+.link:visited {
+  color: #333333;
+}
+
+.link:active {
+  color: #69F0AE;
 }
 
 .link.dropdown {
@@ -33,6 +41,10 @@
   cursor: pointer;
 }
 
+.link.header:visited {
+  color: #00C853;
+}
+
 .link.header {
   color: #00C853;
   font-size: 30px !important;
@@ -45,6 +57,10 @@
 
 .link.header:hover {
   color: #00E676
+}
+
+.link.header:active {
+  color: #69F0AE;
 }
 
 #nav-dropdown {

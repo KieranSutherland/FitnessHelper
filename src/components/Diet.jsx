@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { ProgressBar, FormControl, Button, Glyphicon, Modal, Alert } from 'react-bootstrap';
-import { browserHistory } from 'react-router';
 import { firebase } from '../firebase';
-import NaviBar from './NaviBar';
 import Loading from './Loading';
 import './css/Diet.css';
 
 export default class Diet extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
 
     this.state = {
       caloriesGoal: '',
@@ -77,7 +75,7 @@ export default class Diet extends Component {
 
             }
             else {
-              browserHistory.push('/login'); //User isn't allowed to access this page without being logged in first
+              this.props.history.push('/login'); //User isn't allowed to access this page without being logged in first
             }
 
         });
@@ -212,7 +210,7 @@ export default class Diet extends Component {
       else {
       return (
         <main>
-          <NaviBar />
+
           <div className='content-container'>
 
           <h1>Diet</h1>
@@ -229,7 +227,7 @@ export default class Diet extends Component {
 
           <Button
             className='submitButton calHistoryBtn'
-            onClick={() => browserHistory.push('/calorie_history')}
+            onClick={() => this.props.history.push('/calorie_history')}
             >
             Go to calorie intake history
           </Button>

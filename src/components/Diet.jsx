@@ -25,8 +25,6 @@ export default class Diet extends Component {
 
     componentDidMount() {
 
-
-
       firebase.auth().onAuthStateChanged(user => {
 
           if(user) {
@@ -61,17 +59,10 @@ export default class Diet extends Component {
               let calGoal = Math.round((snapshot.val().fitnessChoice === 'gain') ? ((bmr * 1.55) + 500) : ((bmr * 1.55) - 500)); //1.55 for 3-5 days exercise per week
               this.setState({caloriesGoal: calGoal})
 
-              //Update progress bar with calories eaten for that day
-              let newProgress = Math.round((parseInt(snapshot.val().calories , 10 ) / calGoal) * 100)
-              this.setState({progress: newProgress});
+              this.updateProgressBar(snapshot.val().calories, calGoal);
+              this.updateFoodLog();
 
-              //Make sure progress can't go past 100%
-              if(newProgress > 100) { //Local variable because progress state won't be updated until componentDidMount function is completed
-                this.setState({progress: 100})
-              }
             });
-
-            this.updateFoodLog();
 
             }
             else {
@@ -79,6 +70,21 @@ export default class Diet extends Component {
             }
 
         });
+
+      }
+
+      updateProgressBar(calories, calGoal) {
+
+          //Update progress bar with calories eaten for that day
+          let newProgress = Math.round((parseInt(calories , 10 ) / calGoal) * 100)
+          this.setState({progress: newProgress});
+
+          //Make sure progress can't go past 100%
+          //Local variable because progress state won't be updated until componentDidMount function is completed
+          if(newProgress > 100) {
+            this.setState({progress: 100})
+          }
+          this.setState({calories: calories})
 
       }
 
@@ -102,13 +108,7 @@ export default class Diet extends Component {
           //Update states
           //Need to delcare newCal state so that progressBar and database update instantly instead of next button click (same for newProgress)
           let newCal = (parseInt(this.state.calories , 10 )) + (parseInt(this.state.caloriesTextField , 10 ))
-          let newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
-          this.setState({calories: newCal});
-          this.setState({progress: newProgress});
-          //Make sure progress can't go past 100%
-          if(newProgress > 100) {
-            this.setState({progress: 100})
-          }
+
           //Update database
           if(firebase.auth()) {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
@@ -118,6 +118,8 @@ export default class Diet extends Component {
               food: this.state.foodTextField,
               calories: this.state.caloriesTextField
             });
+
+            this.updateProgressBar(newCal, this.state.caloriesGoal);
           }
 
           // Check if user is trying to lose weight and has gone over their calorie Goal
@@ -150,19 +152,15 @@ export default class Diet extends Component {
           })
           // Update new calories and progressBar values
           let newCal = (parseInt(this.state.calories , 10 )) - removedCals
-          let newProgress = Math.round((parseInt(newCal , 10 ) / this.state.caloriesGoal) * 100)
-          this.setState({calories: newCal});
-          this.setState({progress: newProgress});
-          //Make sure progress can't go past 100%
-          if(newProgress > 100) {
-            this.setState({progress: 100})
-          }
+
           //Update database
           if(firebase.auth()) {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
               calories: newCal
             });
           }
+
+          this.updateProgressBar(newCal, this.state.caloriesGoal);
 
         })
       }

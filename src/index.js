@@ -19,10 +19,9 @@ import AboutUs from './components/AboutUs';
 import NotFound from './components/NotFound';
 
 ReactDOM.render(
-
   <Router>
-    <div>
-      <NaviBar />
+    <main>
+      <Route component={NaviBar} />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
@@ -37,8 +36,7 @@ ReactDOM.render(
         <Route path="/about_us" component={AboutUs} />
         <Route component={NotFound} />
       </Switch>
-    </div>
+    </main>
   </Router>
-
   , document.getElementById('root')
 )

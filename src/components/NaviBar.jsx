@@ -51,10 +51,10 @@ export default class NaviBar extends Component {
 
               <Nav>
                 <NavItem eventKey={1} componentClass='span'>
-                  <NavLink className='link' to='/diet' activeStyle={{'text-decoration': 'none', color: '#00E676'}}>Diet</NavLink>
+                  <NavLink className='link' to='/diet' activeStyle={{textDecoration: 'none', color: '#00E676'}}>Diet</NavLink>
                 </NavItem>
                 <NavItem eventKey={2} componentClass='span'>
-                  <NavLink className='link' to='/exercise' activeStyle={{'text-decoration': 'none', color: '#00E676'}}>Exercise</NavLink>
+                  <NavLink className='link' to='/exercise' activeStyle={{textDecoration: 'none', color: '#00E676'}}>Exercise</NavLink>
                 </NavItem>
               </Nav>
 
@@ -70,11 +70,12 @@ export default class NaviBar extends Component {
                     <NavLink className='link dropdown' to='/contact_us' activeStyle={{color: '#00E676'}}>Contact us</NavLink>
                   </MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4} componentClass='span'
-                    // On click, if user is logged in then sign out, but if user isn't logged in then direct to login page
-                    onClick={() => {(this.state.signInOut === 'Sign out') ? firebase.auth().signOut() : this.props.history.push('/login')}}
-                    >
-                    <a className='link dropdown signOut'>{this.state.signInOut}</a>
+                  <MenuItem eventKey={3.4} componentClass='span'>
+                    <a
+                      className='link dropdown signOut'
+                      // On click, if user is logged in then sign out, but if user isn't logged in then direct to login page
+                      onClick={() => {(this.state.signInOut === 'Sign out') ? firebase.auth().signOut() : this.props.history.push('/login')}}>
+                      {this.state.signInOut}</a>
                   </MenuItem>
                 </NavDropdown>
               </Nav>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { ClipLoader } from 'react-spinners';
-import './css/AboutUs.css';
 
-export default class AboutUs extends Component {
+export default class Loading extends Component {
   constructor(){
     super();
     this.state = {
@@ -13,14 +12,12 @@ export default class AboutUs extends Component {
 
     render() {
       return (
-        <main>
-          <div style={{margin: 'auto', width: '80px', 'padding-top': '200px'}}>
+        <main style={{margin: 'auto', width: '80px', paddingTop: '200px'}}>
             <ClipLoader
               size={80}
               color={'#00C853'}
               loading={true}
             />
-          </div>
         </main>
       )
     }

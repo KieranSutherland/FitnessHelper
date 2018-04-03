@@ -113,9 +113,7 @@ export default class CalorieHistory extends Component {
       }
       else {
       return (
-        <main>
-
-          <div className='content-container'>
+        <main className='content-container'>
 
           <Link to={'/diet'}><Glyphicon glyph="menu-left"/> Back</Link>
           <h1>Calorie History</h1>
@@ -153,7 +151,6 @@ export default class CalorieHistory extends Component {
             </div>
           </div>
 
-        </div>
         </main>
       )
     }

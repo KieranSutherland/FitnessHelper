@@ -38,9 +38,7 @@ export default class ExerciseGain extends Component {
     render() {
 
       return (
-
-        <main>
-          <div className='content-container'>
+        <main className='content-container'>
 
           <h1>Exercise</h1>
           <hr />
@@ -141,9 +139,7 @@ export default class ExerciseGain extends Component {
             The two weeks can be repeated infinitely. Once you have finished week 2, restart back to week 1. As the weeks go on, the heavier weight you will be able to lift.
           </p>
 
-        </div>
       </main>
-
       )
     }
 

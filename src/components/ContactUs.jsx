@@ -12,8 +12,7 @@ export default class ContactUs extends Component {
 
     render() {
       return (
-        <main>
-          <div className='content-container'>
+        <main className='content-container'>
 
           <h1>Contact Us</h1>
           <hr />
@@ -22,7 +21,6 @@ export default class ContactUs extends Component {
           <p><strong>Email: </strong>p15229545@my365.dmu.ac.uk</p>
           <p><strong>Address: </strong>Gateway House, Leicester, LE1 9BH</p>
 
-        </div>
         </main>
       )
     }

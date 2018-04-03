@@ -207,9 +207,7 @@ export default class Diet extends Component {
       }
       else {
       return (
-        <main>
-
-          <div className='content-container'>
+        <main className='content-container'>
 
           <h1>Diet</h1>
           <hr />
@@ -328,7 +326,6 @@ export default class Diet extends Component {
             </Modal.Footer>
           </Modal>
 
-          </div>
         </main>
       )
     }

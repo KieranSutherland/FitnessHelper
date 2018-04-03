@@ -40,9 +40,7 @@ export default class ExerciseLose extends Component {
     render() {
 
       return (
-
-        <main>
-          <div className='content-container'>
+        <main className='content-container'>
 
           <h1>Exercise</h1>
           <hr />
@@ -209,9 +207,7 @@ export default class ExerciseLose extends Component {
             This could include, for example, pull ups, shoulder press, or simply extra time on the treadmill.
           </p>
 
-        </div>
       </main>
-
       )
     }
 

@@ -36,21 +36,13 @@ export default class Exercise extends Component {
     render() {
 
       if(this.state.isLoading === true)  {
-        return ( <Loading /> );
+        return <Loading />
       }
       else if(this.state.fitnessChoice === 'gain') {
-        return (
-          <main>
-            <ExerciseGain />
-          </main>
-          )
+        return <ExerciseGain />
       }
       else {
-        return (
-          <main>
-            <ExerciseLose />
-          </main>
-        )
+        return <ExerciseLose />
       }
 
     }

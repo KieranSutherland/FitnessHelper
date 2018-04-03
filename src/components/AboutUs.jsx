@@ -12,8 +12,7 @@ export default class AboutUs extends Component {
 
     render() {
       return (
-        <main>
-          <div className='content-container'>
+        <main className='content-container'>
 
           <h1>About Us</h1>
           <hr />
@@ -34,7 +33,6 @@ export default class AboutUs extends Component {
             Nullam dignissim, tellus et efficitur maximus, magna ipsum ullamcorper purus, eget dapibus lectus velit ac lorem. Fusce eu mi id elit bibendum tincidunt et eu ex. Duis molestie lorem lacus, in porttitor quam consequat nec. Integer ac quam vitae quam dictum pharetra. Duis nec laoreet lacus, quis ullamcorper dui. Nam molestie vulputate libero, nec ornare nunc ultrices ut. In maximus lorem eu tellus consequat iaculis. Maecenas faucibus placerat feugiat. Phasellus lobortis luctus ligula, eu sodales diam pulvinar ut. Curabitur sollicitudin tortor et tortor venenatis fringilla ut sollicitudin leo.
           </p>
 
-        </div>
         </main>
       )
     }

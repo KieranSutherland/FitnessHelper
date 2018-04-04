@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, FormControl } from 'react-bootstrap';
-import { firebase } from '../firebase';
+import { firebase } from '../../firebase';
 
 export default class ExerciseCalculators extends Component {
   constructor(){

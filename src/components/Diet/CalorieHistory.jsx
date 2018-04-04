@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import LineChart from 'react-linechart';
-import { firebase } from '../firebase';
-import Loading from './Loading';
-import './css/CalorieHistory.css';
-import './css/LineChart.css';
+import { firebase } from '../../firebase';
+import Loading from '../Loading';
+import '../css/LineChart.css';
 
 export default class CalorieHistory extends Component {
   constructor(){
@@ -28,12 +27,15 @@ export default class CalorieHistory extends Component {
 
         if(user) {
 
-          //Resize chart is screen is small
-          if(window.innerWidth <= 650) {
-            this.setState({chartWidth: 300, chartHeight: 240, chartLeftMargin: 45})
+          //Resize chart to fit screen size
+          if(window.innerWidth >= 1100) {
+            this.setState({chartWidth: 1000, chartHeight: 500, chartLeftMargin: 80})
+          }
+          else if(window.innerWidth >= 650) {
+            this.setState({chartWidth: 550, chartHeight: 400, chartLeftMargin: 80})
           }
           else {
-            this.setState({chartWidth: 600, chartHeight: 400, chartLeftMargin: 80})
+            this.setState({chartWidth: 300, chartHeight: 260, chartLeftMargin: 45})
           }
 
           //Update food log
@@ -115,7 +117,7 @@ export default class CalorieHistory extends Component {
       return (
         <main className='content-container'>
 
-          <Link to={'/diet'}><Glyphicon glyph="menu-left"/> Back</Link>
+          <NavLink to={'/diet'}><Glyphicon glyph="menu-left"/> Back</NavLink>
           <h1>Calorie History</h1>
           <hr />
 

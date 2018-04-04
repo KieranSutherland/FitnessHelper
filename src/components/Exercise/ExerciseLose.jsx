@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tabs, Tab, Table, Modal, Button } from 'react-bootstrap';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import './css/Exercise.css';
+import '../css/Exercise.css';
 import ExerciseCalculators from './ExerciseCalculators';
 import Toning1 from './workouts/Toning1';
 import Core1 from './workouts/Core1';

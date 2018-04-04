@@ -55,14 +55,6 @@
   word-break: break-all;
 }
 
-.link.header:hover {
-  color: #00E676
-}
-
-.link.header:active {
-  color: #69F0AE;
-}
-
 #nav-dropdown {
   color: #333333;
   padding-left: 25px;

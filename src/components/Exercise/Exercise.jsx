@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { firebase } from '../firebase';
-import Loading from './Loading';
+import { firebase } from '../../firebase';
+import Loading from '../Loading';
 import ExerciseGain from './ExerciseGain';
 import ExerciseLose from './ExerciseLose';
 

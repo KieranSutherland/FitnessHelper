@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NaviBar from './components/NaviBar';
 
 import Home from './components/Home';
-import Diet from './components/Diet';
-import CalorieHistory from './components/CalorieHistory';
-import Exercise from './components/Exercise';
+import Diet from './components/Diet/Diet';
+import CalorieHistory from './components/Diet/CalorieHistory';
+import Exercise from './components/Exercise/Exercise';
 
 import Login from './components/Login';
 import Register from './components/Register';

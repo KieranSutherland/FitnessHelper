@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
-import { browserHistory } from 'react-router';
+import { FormControl} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { firebase } from '../firebase';
+import InputLines from './InputLines';
 import './css/RegisterLogin.css';
 
 export default class Register extends Component {
@@ -19,79 +18,6 @@ export default class Register extends Component {
 
     }
 
-    gainClicked(e) {
-        this.setState({fitnessChoice : e.target.value});
-        if(this.state.gainColor === 'white') {
-          this.setState({gainColor: '#00C853'});
-          if(this.state.loseColor === '#00C853') //If other button is already selected, deselect it
-            this.setState({loseColor: 'white'})
-        }
-        else {
-            this.setState({gainColor: 'white', fitnessChoice: ''}); //If same button is selected, deselect it & reset fitnessChoice
-        }
-      }
-
-    loseClicked(e) {
-        this.setState({fitnessChoice : e.target.value});
-        if(this.state.loseColor === 'white') {
-          this.setState({loseColor: '#00C853'});
-          if(this.state.gainColor === '#00C853')
-            this.setState({gainColor: 'white'})
-        }
-        else {
-            this.setState({loseColor: 'white', fitnessChoice: ''});
-        }
-    }
-
-    submitClicked() {
-
-      // Check all information has been entered, if not specify which textfield hasn't been entered
-      if(this.state.dob === '') {
-        this.setState({alert: {message: 'Please enter your Date of Birth'}, alertStyle: 'visible'})
-      }
-      else if(this.state.gender === '') {
-        this.setState({alert: {message: 'Please enter your gender'}, alertStyle: 'visible'})
-      }
-      else if(this.state.height === '') {
-        this.setState({alert: {message: 'Please enter your height'}, alertStyle: 'visible'})
-      }
-      else if(this.state.height === '') {
-        this.setState({alert: {message: 'Please enter your height'}, alertStyle: 'visible'})
-      }
-      else if(this.state.weight === '') {
-        this.setState({alert: {message: 'Please enter your weight'}, alertStyle: 'visible'})
-      }
-      else { // Else continue with authentication of email and password
-        let { email, password } = this.state;
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
-          this.setState({alert: error, alertStyle: 'visible'});
-          this.setState({});
-        });
-
-        firebase.auth().onAuthStateChanged(user => {
-          if(user) { // Only activates if user has registered and been created
-            firebase.database().ref('users/' + user.uid).set({
-              email: this.state.email,
-              fitnessChoice: this.state.fitnessChoice,
-              gender: this.state.gender,
-              dob: this.state.dob,
-              height: this.state.height,
-              weight: this.state.weight,
-              calories: 0
-            });
-            user.sendEmailVerification().then( () => {
-              // Email sent.
-            }).catch(error => {
-              console.log('Error sending email verification')
-            });
-            // Because user has logged in, re-direct to diet page
-            browserHistory.push('/diet');
-          }
-        });
-      }
-
-    }
-
     render() {
       return (
 
@@ -102,97 +28,26 @@ export default class Register extends Component {
           <h1>Register</h1>
           <hr />
 
-          <div className='inputLine'>
-            <h4>Email</h4>
-            <FormControl
-              type="text"
-              placeholder="john@example.com"
-              onChange={ e => this.setState({ email : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Password</h4>
-            <FormControl
-              type="password"
-              placeholder="Password (6 or more letters & numbers)"
-              onChange={ e => this.setState({ password : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Date of Birth</h4>
-            <FormControl
-              type="date"
-              placeholder="dd/mm/yyyy"
-              onChange={ e => this.setState({ dob : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Gender</h4>
-              <ToggleButtonGroup className='radio' type="radio" name="options">
-                <ToggleButton value={'male'} onChange={e => this.setState({ gender : e.target.value })}>Male</ToggleButton>
-                <ToggleButton value={'female'} onChange={e => this.setState({ gender : e.target.value })}>Female</ToggleButton>
-              </ToggleButtonGroup>
-          </div>
-
-          <div className='inputLine'>
-            <h4>Height</h4>
-            <FormControl
-              type="text"
-              placeholder="Height (cm)"
-              onChange={ e => this.setState({ height : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Weight</h4>
-            <FormControl
-              type="text"
-              placeholder="Weight (kg)"
-              onChange={ e => this.setState({ weight : e.target.value }) }
-            />
-          </div>
-
-          <div className='inputLine'>
-            <h4>Choose Your Fitness Goal</h4>
-            <ButtonToolbar className='btnToolbar'>
-              <Button
-                className='buttonChoice'
-                value='gain'
-                onClick={this.gainClicked.bind(this)}
-                style={{backgroundColor:this.state.gainColor}}>
-                Gain muscle mass
-              </Button>
-              <Button
-                className='buttonChoice'
-                value='lose'
-                onClick={this.loseClicked.bind(this)}
-                style={{backgroundColor:this.state.loseColor}}>
-                Lose weight & gain tone
-              </Button>
-            </ButtonToolbar>
-          </div>
-
-          <div className='inputLine'>
-            <br />
-            <Button
-              className='submitButton'
-              onClick={() => this.submitClicked()}
-              >
-              Register
-            </Button>
-          </div>
-          <div><Link to={'/login'}>Already a member? Log in here</Link></div>
-
-          <br /><br />
-
-          <div>
-            <Alert className='alert' bsStyle="warning" style={{visibility:this.state.alertStyle}}>
-              <strong>Error!</strong> {this.state.alert.message}
-            </Alert>
-          </div>
+          <InputLines
+            submitButtonName='Register'
+            email=''
+            passwordDiv={
+              <div className='inputLine'>
+                <h4>Password</h4>
+                <FormControl
+                  type="password"
+                  placeholder="Password (6 or more letters & numbers)"
+                  onChange={ e => this.setState({ password : e.target.value }) }
+                />
+              </div>
+            }
+            fitnessChoice='gain' // For default left button activated
+            gender=''
+            dob=''
+            height=''
+            weight=''
+            footer={<div><Link to={'/login'}>Already a member? Log in here</Link><br /><br /></div>}
+          />
 
         </div>
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
 import { firebase } from '../../firebase';
 import Loading from '../Loading';
-import Details from './Details';
 import '../css/Account.css';
 
 export default class PasswordReset extends Component {
@@ -31,6 +30,10 @@ export default class PasswordReset extends Component {
       }
       //Either way, there will need to be some alert to say if it was a success or fail
       this.setState({passwordAlertStyle: 'visible'});
+      // Make alert disappear after 4 seconds
+      setTimeout(function () {
+              this.setState({passwordAlertStyle: 'hidden'});
+      }.bind(this), 4000);
     }
 
     render() {

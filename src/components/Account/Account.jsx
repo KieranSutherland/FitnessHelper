@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
 import { firebase } from '../../firebase';
 import Loading from '../Loading';
-import Details from './Details';
+import InputLines from '../InputLines';
 import PasswordReset from './PasswordReset';
 import DeleteAccount from './DeleteAccount';
 import '../css/Account.css';
@@ -52,7 +52,12 @@ export default class Account extends Component {
 
             <div className='form-container'>
 
-              <Details
+              <h1>Account</h1>
+              <hr />
+
+              <InputLines
+                header='Change information'
+                submitButtonName='Save Changes'
                 email={this.state.email}
                 fitnessChoice={this.state.fitnessChoice}
                 gender={this.state.gender}

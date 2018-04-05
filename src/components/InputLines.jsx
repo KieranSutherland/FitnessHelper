@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
-import { firebase } from '../../firebase';
-import Loading from '../Loading';
-import '../css/Account.css';
+import { firebase } from '../firebase';
+import './css/RegisterLogin.css';
 
-export default class Details extends Component {
+export default class InputLines extends Component {
   constructor(){
     super();
     this.state = {
@@ -92,15 +91,19 @@ export default class Details extends Component {
 
       }
 
+      // Make alert disappear after 4 seconds
+      setTimeout(function () {
+              this.setState({alertStyle: 'hidden'});
+      }.bind(this), 4000);
+
     }
 
     render() {
         return (
           <section>
 
-              <h1>Account</h1>
+            <h3>{this.props.header}</h3>
 
-              <h3>Change information</h3>
             <div className='inputLine'>
               <h4>Email</h4>
               <FormControl
@@ -110,6 +113,8 @@ export default class Details extends Component {
                 onChange={ e => this.setState({ email : e.target.value }) }
               />
             </div>
+
+            <div>{this.props.passwordDiv}</div>
 
             <div className='inputLine'>
               <h4>Date of Birth</h4>
@@ -175,9 +180,12 @@ export default class Details extends Component {
                 className='submitButton'
                 onClick={this.submitClicked.bind(this)}
                 >
-                Save Changes
+                {this.props.submitButtonName}
               </Button>
             </div>
+
+            <div>{this.props.footer}</div>
+
             <div>
               <Alert className='alert' bsStyle={this.state.alertType} style={{visibility:this.state.alertStyle}}>
                 <strong>{this.state.alertType}!</strong> {this.state.alert.message}

@@ -30,7 +30,12 @@ export default class Login extends Component {
         console.log('error');
         this.setState({error});
         this.setState({alertStyle: 'visible'});
+        // Make alert disappear after 4 seconds
+        setTimeout(function () {
+                this.setState({alertStyle: 'hidden'});
+        }.bind(this), 4000);
       });
+
       // If user has successfully logged in, re-direct to diet page
       firebase.auth().onAuthStateChanged(user => {
         if(user) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
+import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
 import { firebase } from '../firebase';
 import './css/RegisterLogin.css';
 
@@ -30,28 +30,19 @@ export default class InputLines extends Component {
       this.props.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
     }
 
-    gainClicked(e) {
-        this.setState({fitnessChoice : e.target.value});
-        if(this.state.gainColor === 'white') {
-          this.setState({gainColor: '#00C853'});
-          if(this.state.loseColor === '#00C853') //If other button is already selected, deselect it
-            this.setState({loseColor: 'white'});
-        }
-        else {
-            this.setState({gainColor: 'white', fitnessChoice: ''}); //If same button is selected, deselect it & reset fitnessChoice
-        }
+    fitnessChoiceClicked(e) {
+      if(e.target.value === 'gain') {
+        this.setState({
+          fitnessChoice: 'gain',
+          gainColor: '#00C853',
+          loseColor: 'white'});
       }
-
-    loseClicked(e) {
-        this.setState({fitnessChoice : e.target.value});
-        if(this.state.loseColor === 'white') {
-          this.setState({loseColor: '#00C853'});
-          if(this.state.gainColor === '#00C853')
-            this.setState({gainColor: 'white'});
-        }
-        else {
-            this.setState({loseColor: 'white', fitnessChoice: ''});
-        }
+      else {
+        this.setState({
+          fitnessChoice: 'lose',
+          loseColor: '#00C853',
+          gainColor: 'white'});
+      }
     }
 
     submitClicked() {
@@ -160,14 +151,14 @@ export default class InputLines extends Component {
                 <Button
                   className='buttonChoice'
                   value='gain'
-                  onClick={this.gainClicked.bind(this)}
+                  onClick={this.fitnessChoiceClicked.bind(this)}
                   style={{backgroundColor:this.state.gainColor}}>
                   Gain muscle mass
                 </Button>
                 <Button
                   className='buttonChoice'
                   value='lose'
-                  onClick={this.loseClicked.bind(this)}
+                  onClick={this.fitnessChoiceClicked.bind(this)}
                   style={{backgroundColor:this.state.loseColor}}>
                   Lose weight & gain tone
                 </Button>

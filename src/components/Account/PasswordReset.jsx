@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
+import { Button, FormControl, Alert} from 'react-bootstrap';
 import { firebase } from '../../firebase';
-import Loading from '../Loading';
 import '../css/Account.css';
 
 export default class PasswordReset extends Component {

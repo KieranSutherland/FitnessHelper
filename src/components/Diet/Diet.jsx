@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ProgressBar, FormControl, Button, Glyphicon, Modal, Alert } from 'react-bootstrap';
 import { firebase } from '../../firebase';
 import Loading from '../Loading';
 import AddFood from './AddFood';
@@ -44,8 +43,6 @@ export default class Diet extends Component {
                 calories: (snapshot.val() && snapshot.val().calories),
                 isLoading: false
               });
-              //Set button of fitnessChoice to the correct one
-              this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
 
               //Calculate calories needed
               let bmr = 10 * parseInt(snapshot.val().weight , 10)

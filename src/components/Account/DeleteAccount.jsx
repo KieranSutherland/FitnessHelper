@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
+import { Button, Modal, Alert} from 'react-bootstrap';
 import { firebase } from '../../firebase';
-import Loading from '../Loading';
 import '../css/Account.css';
 
 export default class DeleteAccount extends Component {

@@ -20,7 +20,7 @@ export default class Progress extends Component {
 
           <h1>Diet</h1>
           <hr />
-          <h2>Progress for today's calorie intake</h2>
+          <h2>Progress for Today's Calorie Intake</h2>
           <div className='caloriesAndGoal'>
             <ul>
               <li>Calories: {this.props.calories}</li>
@@ -31,8 +31,8 @@ export default class Progress extends Component {
           <ProgressBar className='progressBar' now={this.props.progress} label={`${this.props.progress}%`} />
 
 
-            <NavLink style={{display: 'block', height: '100%', width: '100%'}} to={'/calorie_history'}>
-              <Button className='submitButton calHistoryBtn'>Go to calorie intake history</Button>
+            <NavLink to={'/calorie_history'}>
+              <Button className='submitButton calHistoryBtn'>Go to Calorie History</Button>
             </NavLink>
 
 

@@ -16,7 +16,7 @@ export default class AddFood extends Component {
 
       addFood() {
         //If text fields are empty, no need to change states
-        if(this.state.caloriesTextField !== '' && this.state.foodTextField !== '') {
+        if( this.state.foodTextField !== '' && this.state.caloriesTextField !== '' && this.state.caloriesTextField > 0) {
           //Update states
           //Need to delcare newCal state so that progressBar and database update instantly instead of next button click (same for newProgress)
           let newCal = (parseInt(this.props.calories , 10 )) + (parseInt(this.state.caloriesTextField , 10 ))
@@ -52,7 +52,7 @@ export default class AddFood extends Component {
       return (
         <section>
 
-          <h2>Add eaten food</h2>
+          <h2>Add Eaten Food</h2>
           <div className='inputLine small'>
             <FormControl
               id='foodTextField'

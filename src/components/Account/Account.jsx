@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
 import { firebase } from '../../firebase';
 import Loading from '../Loading';
 import InputLines from '../InputLines';

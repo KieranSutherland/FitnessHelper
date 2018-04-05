@@ -9,13 +9,6 @@ export default class Register extends Component {
   constructor(){
     super();
     this.state = {
-      email : '',
-      password : '',
-      fitnessChoice : '',
-      gender: '',
-      dob: '',
-      height: '',
-      weight : '',
       gainColor: 'white',
       loseColor: 'white',
       alertStyle : 'hidden',

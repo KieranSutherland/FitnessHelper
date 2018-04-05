@@ -30,11 +30,11 @@ export default class Progress extends Component {
 
           <ProgressBar className='progressBar' now={this.props.progress} label={`${this.props.progress}%`} />
 
-          <Button
-            className='submitButton calHistoryBtn'
-            >
-            <NavLink style={{display: 'block', height: '100%', width: '100%'}} to={'/calorie_history'}>Go to calorie intake history</NavLink>
-          </Button>
+
+            <NavLink style={{display: 'block', height: '100%', width: '100%'}} to={'/calorie_history'}>
+              <Button className='submitButton calHistoryBtn'>Go to calorie intake history</Button>
+            </NavLink>
+
 
         </section>
       )

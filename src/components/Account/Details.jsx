@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert, Modal} from 'react-bootstrap';
-import { firebase } from '../firebase';
-import Loading from './Loading';
-import './css/Account.css';
+import { firebase } from '../../firebase';
+import Loading from '../Loading';
+import '../css/Account.css';
 
-export default class Account extends Component {
+export default class Details extends Component {
   constructor(){
     super();
     this.state = {
@@ -14,44 +14,21 @@ export default class Account extends Component {
       alertType : 'success',
       alert: {
         message: ''
-      },
-      passwordAlertStyle : 'hidden',
-      passwordAlertType : 'success',
-      passwordAlert: {
-        message: ''
-      },
-      deleteAlertStyle : 'hidden',
-      deleteAlert: {
-        message: ''
-      },
-      isLoading: true
+      }
     }
 
     }
 
     componentDidMount() {
-
-      firebase.auth().onAuthStateChanged(user => {
-
-        if(user) {
-          firebase.database().ref('/users/' + user.uid).once('value').then(snapshot => {
-            this.setState({ // Set values to current user's data
-              email: (snapshot.val() && snapshot.val().email),
-              fitnessChoice: (snapshot.val() && snapshot.val().fitnessChoice),
-              gender: (snapshot.val() && snapshot.val().gender),
-              dob: (snapshot.val() && snapshot.val().dob),
-              height: (snapshot.val() && snapshot.val().height),
-              weight: (snapshot.val() && snapshot.val().weight),
-              isLoading: false
-            });
-            this.state.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
-          });
-          }
-          else {
-            this.props.history.push('/login'); //User isn't allowed to access this page without being logged in first
-          }
-
-      });
+      this.setState({
+        email: this.props.email,
+        fitnessChoice: this.props.fitnessChoice,
+        gender: this.props.gender,
+        dob: this.props.dob,
+        height: this.props.height,
+        weight: this.props.weight
+      })
+      this.props.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
     }
 
     gainClicked(e) {
@@ -59,7 +36,7 @@ export default class Account extends Component {
         if(this.state.gainColor === 'white') {
           this.setState({gainColor: '#00C853'});
           if(this.state.loseColor === '#00C853') //If other button is already selected, deselect it
-            this.setState({loseColor: 'white'})
+            this.setState({loseColor: 'white'});
         }
         else {
             this.setState({gainColor: 'white', fitnessChoice: ''}); //If same button is selected, deselect it & reset fitnessChoice
@@ -71,7 +48,7 @@ export default class Account extends Component {
         if(this.state.loseColor === 'white') {
           this.setState({loseColor: '#00C853'});
           if(this.state.gainColor === '#00C853')
-            this.setState({gainColor: 'white'})
+            this.setState({gainColor: 'white'});
         }
         else {
             this.setState({loseColor: 'white', fitnessChoice: ''});
@@ -99,7 +76,7 @@ export default class Account extends Component {
       }
       else {
         firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
-          firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/' + this.props.text).update({
+          firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
             email: this.state.email,
             fitnessChoice: this.state.fitnessChoice,
             gender: this.state.gender,
@@ -117,43 +94,9 @@ export default class Account extends Component {
 
     }
 
-    passwordSubmitClicked() {
-      if(this.state.password1 !== this.state.password2) {
-        this.setState({passwordAlert: {message: 'Passwords do not match'}, passwordAlertType: 'warning'});
-      }
-      else {
-        firebase.auth().currentUser.updatePassword(this.state.password1).then(() => {
-          this.setState({passwordAlert: {message: 'Password has been successfully changed'}, passwordAlertType: 'success'});
-        }).catch(error => {
-          this.setState({passwordAlert: error, passwordAlertType: 'warning'});
-        });
-      }
-      //Either way, there will need to be some alert to say if it was a success or fail
-      this.setState({passwordAlertStyle: 'visible'});
-    }
-
-    deleteAccountClicked() {
-      let user = firebase.auth().currentUser;
-      let ref = firebase.database().ref(
-        "/users/" + user.uid);
-      user.delete().then( () => {
-        // User deleted.
-        ref.remove();
-        this.setState({deleteAlertStyle: 'hidden'});
-      }).catch(error => {
-        this.setState({deleteAlert: error, deleteAlertStyle: 'visible'});
-      });
-    }
-
     render() {
-      if(this.state.isLoading === true)  {
-        return ( <Loading /> );
-      }
-      else {
         return (
-          <main>
-
-            <div className='form-container'>
+          <section>
 
               <h1>Account</h1>
 
@@ -241,88 +184,10 @@ export default class Account extends Component {
               </Alert>
             </div>
 
-
-            <h3>Change password</h3>
-            <div className='inputLine'>
-              <h4>Password</h4>
-              <FormControl
-                type="password"
-                placeholder="Password (6 or more letters & numbers)"
-                onChange={ e => this.setState({ password1 : e.target.value }) }
-              />
-            </div>
-            <div className='inputLine'>
-              <h4>Re-enter password</h4>
-              <FormControl
-                type="password"
-                placeholder="Password"
-                onChange={ e => this.setState({ password2 : e.target.value }) }
-              />
-            </div>
-            <div className='inputLine'>
-              <br />
-              <Button
-                className='submitButton'
-                onClick={ () => this.passwordSubmitClicked() }
-                >
-                Change Password
-              </Button>
-            </div>
-            <div>
-              <Alert className='alert' bsStyle={this.state.passwordAlertType} style={{visibility:this.state.passwordAlertStyle}}>
-                <strong>{this.state.passwordAlertType}!</strong> {this.state.passwordAlert.message}
-              </Alert>
-            </div>
-
-            <hr />
-            <div className='inputLine'>
-              <br /><br />
-              <Button
-                className='submitButton deleteAccount'
-                onClick={ () => this.setState({ show: true }) }
-                >
-                Delete Account
-              </Button>
-            </div>
-
-            <Modal show={this.state.show} onHide={ () => this.setState({ show: false }) }>
-              <Modal.Header closeButton>
-                <Modal.Title><strong style={{color: '#E53935'}}>Delete Account</strong></Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <h4 style={{padding: '0px 0px 0px 15px'}}>Are you sure? You won't be able to get your account back!</h4>
-                <br />
-                <div className='lastChanceBtns'>
-                <Button
-                  className='submitButton lastChance'
-                  onClick={this.deleteAccountClicked.bind(this)}
-                  >
-                  YES
-                </Button>
-                <Button
-                  className='submitButton lastChance'
-                  onClick={() => this.setState({ show: false })}
-                  >
-                  NO
-                </Button>
-                </div>
-                <div>
-                  <Alert className='alert' bsStyle="warning" style={{visibility:this.state.deleteAlertStyle}}>
-                    <strong>Error!</strong> {this.state.deleteAlert.message}
-                  </Alert>
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={() => this.setState({ show: false })}>Close</Button>
-              </Modal.Footer>
-            </Modal>
-
-          </div>
-
-        </main>
+        </section>
         )
       }
 
-    }
+
 
   }

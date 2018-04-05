@@ -12,7 +12,7 @@ import Exercise from './components/Exercise/Exercise';
 import Login from './components/Login';
 import Register from './components/Register';
 
-import Account from './components/Account';
+import Account from './components/Account/Account';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 

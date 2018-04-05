@@ -117,7 +117,7 @@ export default class CalorieHistory extends Component {
       return (
         <main className='content-container'>
 
-          <NavLink to={'/diet'}><Glyphicon glyph="menu-left"/> Back</NavLink>
+          <NavLink style={{color: 'black'}} to={'/diet'}><Glyphicon style={{color: '#00C853'}} glyph="menu-left"/> Back</NavLink>
           <h1>Calorie History</h1>
           <hr />
 

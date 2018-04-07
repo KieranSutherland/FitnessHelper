@@ -29,13 +29,6 @@ export default class InputLines extends Component {
         height: this.props.height,
         weight: this.props.weight
       })
-      this.setState({
-        email: 'testing@testing.com',
-        fitnessChoice: 'gain',
-        gender: 'male',
-        height: '180',
-        weight: '80',
-      })
       this.props.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
     }
 
@@ -57,38 +50,73 @@ export default class InputLines extends Component {
     submitClicked() {
       //Either way, there will need to be some alert to say if it was a success or fail
       this.setState({alertStyle: 'visible', alertHeight: '52px'});
+      let { email, fitnessChoice, gender, dob, height, weight } = this.state;
 
-      if(this.state.dob === '') {
+      if(dob === '') {
         this.setState({alert: {message: 'Please enter your Date of Birth'}, alertType: 'warning' })
       }
-      else if(this.state.gender === '') {
+      else if(gender === '') {
         this.setState({alert: {message: 'Please enter your gender'}, alertType: 'warning' })
       }
-      else if(this.state.height === '') {
+      else if(height === '') {
         this.setState({alert: {message: 'Please enter your height'}, alertType: 'warning' })
       }
-      else if(this.state.height === '') {
+      else if(height === '') {
         this.setState({alert: {message: 'Please enter your height'}, alertType: 'warning' })
       }
-      else if(this.state.weight === '') {
+      else if(weight === '') {
         this.setState({alert: {message: 'Please enter your weight'}, alertType: 'warning' })
       }
       else {
-        if(firebase.auth()) {
-          firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
-            firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
-              email: this.state.email,
-              fitnessChoice: this.state.fitnessChoice,
-              gender: this.state.gender,
-              dob: this.state.dob,
-              height: this.state.height,
-              weight: this.state.weight,
+
+        // If user is logged in (on Account page)
+        if(firebase.auth().currentUser) {
+          let user = firebase.auth().currentUser
+          user.updateEmail(this.state.email).then(() => { //Checks if email is valid
+            firebase.database().ref('users/' + user.uid).update({
+              email: email,
+              fitnessChoice: fitnessChoice,
+              gender: gender,
+              dob: dob,
+              height: height,
+              weight: weight,
             });
             this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
 
             }).catch(error => {
               this.setState({alert: error, alertType: 'warning'});
             })
+        }
+        // Else user is not logged in (on Register page)
+        else {
+          firebase.auth().createUserWithEmailAndPassword(email, this.props.password).catch(error => {
+            this.setState({alert: error, alertStyle: 'visible'});
+          });
+
+          firebase.auth().onAuthStateChanged( user => {
+              if(user) { // Only activates if user has registered and been created
+                firebase.database().ref('users/' + user.uid).set({
+                  email: email,
+                  fitnessChoice: fitnessChoice,
+                  gender: gender,
+                  dob: dob,
+                  height: height,
+                  weight: weight,
+                  calories: 0
+                });
+                user.sendEmailVerification().then( () => {
+                  // Email sent.
+                }).catch(error => {
+                  console.log('Error sending email verification')
+                });
+                // Because user has logged in, re-direct to diet page
+                this.props.history.push('/diet');
+            } else {
+
+            }
+          });
+
+
         }
 
       }

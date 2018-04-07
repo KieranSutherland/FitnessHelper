@@ -31,6 +31,7 @@ export default class Register extends Component {
           <InputLines
             submitButtonName='Register'
             email=''
+            password={this.state.password}
             passwordDiv={
               <div className='inputLine'>
                 <h4>Password</h4>
@@ -47,7 +48,7 @@ export default class Register extends Component {
             height=''
             weight=''
             footer={<div><Link to={'/login'}>Already a member? Log in here</Link><br /><br /></div>}
-
+            history={this.props.history}
           />
 
         </div>

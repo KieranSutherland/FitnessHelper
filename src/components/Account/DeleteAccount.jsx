@@ -73,7 +73,7 @@ export default class DeleteAccount extends Component {
 
                 <AlertPopup
                   height={this.state.deleteAlertHeight}
-                  alertType={'error'}
+                  alertType={'warning'}
                   alertStyle={this.state.deleteAlertStyle}
                   alertMessage={this.state.deleteAlert.message}
                 />

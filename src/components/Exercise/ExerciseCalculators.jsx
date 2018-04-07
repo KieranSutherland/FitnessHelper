@@ -17,8 +17,6 @@ export default class ExerciseCalculators extends Component {
 
     componentDidMount() {
 
-
-
       firebase.auth().onAuthStateChanged(user => {
 
           if(user) {
@@ -40,7 +38,6 @@ export default class ExerciseCalculators extends Component {
     oneRepMax() {
       this.setState({oneRepMaxTextField: Math.round(this.state.weightLifted * ( 1 + (this.state.reps / 30)))})
     }
-
 
     render() {
 

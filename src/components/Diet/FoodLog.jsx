@@ -63,7 +63,6 @@ export default class FoodLog extends Component {
 
         </section>
       )
-
     }
 
   }

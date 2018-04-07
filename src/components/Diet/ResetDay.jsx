@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Alert } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { firebase } from '../../firebase';
 import '../css/Diet.css';
 
@@ -67,9 +67,11 @@ export default class ResetDay extends Component {
           </Button>
 
           <Modal show={this.state.showReset} onHide={ () => this.setState({ showReset: false }) }>
+
             <Modal.Header closeButton>
               <Modal.Title><strong style={{color: '#E53935'}}>Reset Day</strong></Modal.Title>
             </Modal.Header>
+
             <Modal.Body>
               <h4 style={{padding: '0px 0px 0px 15px'}}>Are you sure? Your calorie intake and food log will be reset.</h4>
               <br />
@@ -87,20 +89,17 @@ export default class ResetDay extends Component {
                 NO
               </Button>
               </div>
-              <div>
-                <Alert className='alert' bsStyle="warning" style={{visibility:this.state.resetDayAlertStyle}}>
-                  <strong>Error!</strong> {this.state.resetDayAlert.message}
-                </Alert>
-              </div>
+
             </Modal.Body>
+
             <Modal.Footer>
               <Button onClick={() => this.setState({ showReset: false })}>Close</Button>
             </Modal.Footer>
+
           </Modal>
 
         </section>
       )
-
     }
 
   }

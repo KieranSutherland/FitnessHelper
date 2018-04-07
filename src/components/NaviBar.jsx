@@ -32,6 +32,7 @@ export default class NaviBar extends Component {
             this.setState({signInOut: 'Sign in'});
           }
       });
+
     }
 
     render() {

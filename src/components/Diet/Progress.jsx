@@ -14,7 +14,6 @@ export default class Progress extends Component {
     }
 
     render() {
-
       return (
         <section>
 
@@ -38,7 +37,6 @@ export default class Progress extends Component {
 
         </section>
       )
-
     }
 
   }

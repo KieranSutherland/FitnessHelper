@@ -111,12 +111,8 @@ export default class InputLines extends Component {
                 });
                 // Because user has logged in, re-direct to diet page
                 this.props.history.push('/diet');
-            } else {
-
             }
           });
-
-
         }
 
       }
@@ -226,7 +222,5 @@ export default class InputLines extends Component {
         </section>
         )
       }
-
-
 
   }

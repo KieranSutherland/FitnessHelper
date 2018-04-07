@@ -29,8 +29,8 @@ export default class Exercise extends Component {
           else {
             this.props.history.push('/login'); // User isn't allowed to access this page without being logged in first
           }
-
       });
+
     }
 
     render() {
@@ -44,7 +44,6 @@ export default class Exercise extends Component {
       else {
         return <ExerciseLose />
       }
-
     }
 
   }

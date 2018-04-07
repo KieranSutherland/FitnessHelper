@@ -90,6 +90,4 @@ export default class DeleteAccount extends Component {
         )
       }
 
-
-
   }

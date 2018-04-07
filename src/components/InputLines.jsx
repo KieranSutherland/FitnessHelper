@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl, Alert} from 'react-bootstrap';
+import { Button, ToggleButtonGroup, ToggleButton, ButtonToolbar, FormControl } from 'react-bootstrap';
 import { firebase } from '../firebase';
+import AlertPopup from './AlertPopup';
 import './css/RegisterLogin.css';
 
 export default class InputLines extends Component {
@@ -9,8 +10,9 @@ export default class InputLines extends Component {
     this.state = {
       gainColor: 'white',
       loseColor: 'white',
-      alertStyle : 'hidden',
-      alertType : 'success',
+      alertStyle: 'hidden',
+      alertType: 'success',
+      alertHeight: '0px',
       alert: {
         message: ''
       }
@@ -26,6 +28,13 @@ export default class InputLines extends Component {
         dob: this.props.dob,
         height: this.props.height,
         weight: this.props.weight
+      })
+      this.setState({
+        email: 'testing@testing.com',
+        fitnessChoice: 'gain',
+        gender: 'male',
+        height: '180',
+        weight: '80',
       })
       this.props.fitnessChoice === 'gain' ? this.setState({gainColor: '#00C853'}) : this.setState({loseColor: '#00C853'});
     }
@@ -47,7 +56,7 @@ export default class InputLines extends Component {
 
     submitClicked() {
       //Either way, there will need to be some alert to say if it was a success or fail
-      this.setState({alertStyle: 'visible'});
+      this.setState({alertStyle: 'visible', alertHeight: '52px'});
 
       if(this.state.dob === '') {
         this.setState({alert: {message: 'Please enter your Date of Birth'}, alertType: 'warning' })
@@ -65,26 +74,28 @@ export default class InputLines extends Component {
         this.setState({alert: {message: 'Please enter your weight'}, alertType: 'warning' })
       }
       else {
-        firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
-          firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
-            email: this.state.email,
-            fitnessChoice: this.state.fitnessChoice,
-            gender: this.state.gender,
-            dob: this.state.dob,
-            height: this.state.height,
-            weight: this.state.weight,
-          });
-          this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
+        if(firebase.auth()) {
+          firebase.auth().currentUser.updateEmail(this.state.email).then(() => { //Checks if email is valid
+            firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
+              email: this.state.email,
+              fitnessChoice: this.state.fitnessChoice,
+              gender: this.state.gender,
+              dob: this.state.dob,
+              height: this.state.height,
+              weight: this.state.weight,
+            });
+            this.setState({alert: {message: 'Changes have been saved successfully'}, alertType: 'success'});
 
-          }).catch(error => {
-            this.setState({alert: error, alertType: 'warning'});
-          })
+            }).catch(error => {
+              this.setState({alert: error, alertType: 'warning'});
+            })
+        }
 
       }
 
       // Make alert disappear after 4 seconds
       setTimeout(function () {
-              this.setState({alertStyle: 'hidden'});
+              this.setState({alertStyle: 'hidden', alertHeight: '0px'});
       }.bind(this), 4000);
 
     }
@@ -177,11 +188,12 @@ export default class InputLines extends Component {
 
             <div>{this.props.footer}</div>
 
-            <div>
-              <Alert className='alert' bsStyle={this.state.alertType} style={{visibility:this.state.alertStyle}}>
-                <strong>{this.state.alertType}!</strong> {this.state.alert.message}
-              </Alert>
-            </div>
+            <AlertPopup
+              height={this.state.alertHeight}
+              alertType={this.state.alertType}
+              alertStyle={this.state.alertStyle}
+              alertMessage={this.state.alert.message}
+            />
 
         </section>
         )

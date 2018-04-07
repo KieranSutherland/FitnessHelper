@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Modal, Alert} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { firebase } from '../../firebase';
+import AlertPopup from '../AlertPopup';
 import '../css/Account.css';
 
 export default class DeleteAccount extends Component {
   constructor(){
     super();
     this.state = {
-      deleteAlertStyle : 'hidden',
+      deleteAlertStyle: 'hidden',
+      deleteAlertHeight: '0px',
       deleteAlert: {
         message: ''
       }
@@ -24,7 +26,11 @@ export default class DeleteAccount extends Component {
         ref.remove();
         this.setState({deleteAlertStyle: 'hidden'});
       }).catch(error => {
-        this.setState({deleteAlert: error, deleteAlertStyle: 'visible'});
+        this.setState({deleteAlert: error, deleteAlertStyle: 'visible', deleteAlertHeight: '52px'});
+        // Make alert disappear after 4 seconds
+        setTimeout(function () {
+                this.setState({deleteAlertStyle: 'hidden', deleteAlertHeight: '0px'});
+        }.bind(this), 4000);
       });
     }
 
@@ -46,6 +52,7 @@ export default class DeleteAccount extends Component {
               <Modal.Header closeButton>
                 <Modal.Title><strong style={{color: '#E53935'}}>Delete Account</strong></Modal.Title>
               </Modal.Header>
+
               <Modal.Body>
                 <h4 style={{padding: '0px 0px 0px 15px'}}>Are you sure? You won't be able to get your account back!</h4>
                 <br />
@@ -63,15 +70,20 @@ export default class DeleteAccount extends Component {
                   NO
                 </Button>
                 </div>
-                <div>
-                  <Alert className='alert' bsStyle="warning" style={{visibility:this.state.deleteAlertStyle}}>
-                    <strong>Error!</strong> {this.state.deleteAlert.message}
-                  </Alert>
-                </div>
+
+                <AlertPopup
+                  height={this.state.deleteAlertHeight}
+                  alertType={'error'}
+                  alertStyle={this.state.deleteAlertStyle}
+                  alertMessage={this.state.deleteAlert.message}
+                />
+
               </Modal.Body>
+
               <Modal.Footer>
                 <Button onClick={() => this.setState({ show: false })}>Close</Button>
               </Modal.Footer>
+
             </Modal>
 
         </section>

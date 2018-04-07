@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button, FormControl, Alert, Modal } from 'react-bootstrap';
+import { Button, FormControl, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { firebase } from '../firebase';
+import AlertPopup from './AlertPopup';
 import './css/RegisterLogin.css';
 
 export default class Login extends Component {
@@ -16,7 +17,8 @@ export default class Login extends Component {
       },
       show: false,
       resetAlertStyle : 'hidden',
-      resetAlertType : "success",
+      resetAlertType : 'warning',
+      resetAlertHeight: '0px',
       resetAlert: {
         message: ''
       }
@@ -27,7 +29,6 @@ export default class Login extends Component {
     submitClicked() {
       let { email, password } = this.state;
       firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
-        console.log('error');
         this.setState({error});
         this.setState({alertStyle: 'visible'});
         // Make alert disappear after 4 seconds
@@ -50,7 +51,11 @@ export default class Login extends Component {
       }).catch(error => {
         this.setState({resetAlert: error, resetAlertType: "warning"});
       });
-        this.setState({resetAlertStyle: 'visible'}); //Either way, there will need to be some alert to say if it was a success or fail
+        this.setState({resetAlertStyle: 'visible', resetAlertHeight: '52px'}); //Either way, there will need to be some alert to say if it was a success or fail
+        // Make alert disappear after 4 seconds
+        setTimeout(function () {
+                this.setState({resetAlertStyle: 'hidden', resetAlertHeight: '0px'});
+        }.bind(this), 4000);
     }
 
     render() {
@@ -68,6 +73,7 @@ export default class Login extends Component {
             <FormControl
               type="text"
               placeholder="Email"
+              onKeyPress={e => {if(e.key === 'Enter') {this.submitClicked()}}} //Login if Enter key pressed
               onChange={ e => this.setState({ email : e.target.value }) }
             />
           </div>
@@ -96,18 +102,21 @@ export default class Login extends Component {
 
           <br /><br />
 
-          <div>
-            <Alert className='alert' bsStyle="warning" style={{visibility:this.state.alertStyle}}>
-              <strong>Error!</strong> {this.state.error.message}
-            </Alert>
-          </div>
+          <AlertPopup
+            height={'52px'}
+            alertType={'warning'}
+            alertStyle={this.state.alertStyle}
+            alertMessage={this.state.error.message}
+          />
 
         </div>
 
         <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
+
           <Modal.Header closeButton>
             <Modal.Title>Password Reset</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <h4>Enter email to send a password reset</h4>
             <FormControl
@@ -122,13 +131,20 @@ export default class Login extends Component {
               >
               Send Email
             </Button>
-            <Alert className='alert' bsStyle={this.state.resetAlertType} style={{visibility:this.state.resetAlertStyle}}>
-              <strong>{this.state.resetAlertType}!</strong> {this.state.resetAlert.message}
-            </Alert>
+
+            <AlertPopup
+              height={this.state.resetAlertHeight}
+              alertType={this.state.resetAlertType}
+              alertStyle={this.state.resetAlertStyle}
+              alertMessage={this.state.resetAlert.message}
+            />
+
           </Modal.Body>
+
           <Modal.Footer>
             <Button onClick={() => this.setState({ show: false })}>Close</Button>
           </Modal.Footer>
+
         </Modal>
 
         </main>

@@ -47,6 +47,7 @@ export default class Register extends Component {
             height=''
             weight=''
             footer={<div><Link to={'/login'}>Already a member? Log in here</Link><br /><br /></div>}
+
           />
 
         </div>

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { Button, FormControl, Alert} from 'react-bootstrap';
+import { Button, FormControl} from 'react-bootstrap';
 import { firebase } from '../../firebase';
+import AlertPopup from '../AlertPopup';
 import '../css/Account.css';
 
 export default class PasswordReset extends Component {
   constructor(){
     super();
     this.state = {
-      passwordAlertStyle : 'hidden',
-      passwordAlertType : 'success',
-      passwordAlert: {
+      password1: '',
+      password2: '',
+      alertStyle: 'hidden',
+      alertType: 'success',
+      alertHeight: '0px',
+      alert: {
         message: ''
       }
     }
@@ -18,20 +22,20 @@ export default class PasswordReset extends Component {
 
     passwordSubmitClicked() {
       if(this.state.password1 !== this.state.password2) {
-        this.setState({passwordAlert: {message: 'Passwords do not match'}, passwordAlertType: 'warning'});
+        this.setState({alert: {message: 'Passwords do not match'}, alertType: 'warning'});
       }
       else {
         firebase.auth().currentUser.updatePassword(this.state.password1).then(() => {
-          this.setState({passwordAlert: {message: 'Password has been successfully changed'}, passwordAlertType: 'success'});
+          this.setState({alert: {message: 'Password has been successfully changed'}, alertType: 'success'});
         }).catch(error => {
-          this.setState({passwordAlert: error, passwordAlertType: 'warning'});
+          this.setState({alert: error, alertType: 'warning'});
         });
       }
       //Either way, there will need to be some alert to say if it was a success or fail
-      this.setState({passwordAlertStyle: 'visible'});
+      this.setState({alertStyle: 'visible', alertHeight: '52px'});
       // Make alert disappear after 4 seconds
       setTimeout(function () {
-              this.setState({passwordAlertStyle: 'hidden'});
+              this.setState({alertStyle: 'hidden', alertHeight: '0px'});
       }.bind(this), 4000);
     }
 
@@ -67,11 +71,12 @@ export default class PasswordReset extends Component {
               </Button>
             </div>
 
-            <div>
-              <Alert className='alert' bsStyle={this.state.passwordAlertType} style={{visibility:this.state.passwordAlertStyle}}>
-                <strong>{this.state.passwordAlertType}!</strong> {this.state.passwordAlert.message}
-              </Alert>
-            </div>
+            <AlertPopup
+              height={this.state.alertHeight}
+              alertType={this.state.alertType}
+              alertStyle={this.state.alertStyle}
+              alertMessage={this.state.alert.message}
+            />
 
         </section>
         )

@@ -6,11 +6,12 @@ export default class ExerciseCalculators extends Component {
   constructor(){
     super();
     this.state = {
-      modalMessage: '',
       weightLifted: '',
       reps: '',
       oneRepMaxTextField: '',
-      bmiTextField: ''
+      bmiTextField: '',
+      bmiResult: '',
+      bmiResultColor: 'Black'
     }
 
     }
@@ -24,9 +25,36 @@ export default class ExerciseCalculators extends Component {
 
               let height = (snapshot.val() && snapshot.val().height) / 100; // divided by 100 to convert from cm to metres
               let weight = (snapshot.val() && snapshot.val().weight);
+              let bmi = Math.round((weight / (height * height)) * 10) / 10; //Round to one decimal place
+              let bmiResult = 'Error' //Set for default
+              let bmiResultColor = 'Black'
+
+              //Calculate user's health based on their bmi result
+              if(bmi < 18) {
+                bmiResult = 'underweight'
+                bmiResultColor = '#2196F3'
+              }
+              else if(bmi >= 18 && bmi < 25) {
+                bmiResult = 'healthy'
+                bmiResultColor = '#00C853'
+              }
+              else if(bmi >= 25 && bmi < 30) {
+                bmiResult = 'overweight'
+                bmiResultColor = '#FFD600'
+              }
+              else if(bmi >= 30 && bmi < 40) {
+                bmiResult = 'obese'
+                bmiResultColor = '#FF9800'
+              }
+              else if(bmi >= 40) {
+                bmiResult = 'extremely obese'
+                bmiResultColor = '#E53935'
+              }
 
               this.setState({ // Set value for BMI
-                bmiTextField: Math.round((weight / (height * height)) * 10) / 10 //Round to one decimal place
+                bmiTextField: bmi,
+                bmiResult: bmiResult,
+                bmiResultColor: bmiResultColor
               });
             });
           }
@@ -36,7 +64,17 @@ export default class ExerciseCalculators extends Component {
       }
 
     oneRepMax() {
-      this.setState({oneRepMaxTextField: Math.round(this.state.weightLifted * ( 1 + (this.state.reps / 30)))})
+      let textbox1 = Number(this.state.weightLifted)
+      let textbox2 = Number(this.state.reps)
+
+      // If both textboxes are integers and not empty
+      if(Math.floor(textbox1) === textbox1 && Math.floor(textbox2) === textbox2
+          && this.state.weightLifted !== '' && this.state.reps !== '') {
+        this.setState({oneRepMaxTextField: 'Result = ' + Math.round(this.state.weightLifted * ( 1 + (this.state.reps / 30)))})
+      }
+      else {
+        this.setState({oneRepMaxTextField: ''})
+      }
     }
 
     render() {
@@ -47,9 +85,10 @@ export default class ExerciseCalculators extends Component {
           <h2>Calculators</h2>
 
           <h4>One Rep Max</h4>
-          <p>
+          <span>
             Enter the weight you can lift along with however many perfect form reps you can do within one set
-          </p>
+          </span>
+          <br /><br />
           <div className='inputLine small'>
             <FormControl
               type="text"
@@ -74,31 +113,24 @@ export default class ExerciseCalculators extends Component {
             </Button>
 
           </div>
-          <div className='inputLine small'>
-            <FormControl
-              style={{width: '250px'}}
-              disabled
-              type="text"
-              placeholder='Result'
-              value={this.state.oneRepMaxTextField}
-            />
-          </div>
+          <span className='exerciseResult'>
+              {this.state.oneRepMaxTextField}
+          </span>
 
           <hr align='left' width='250px'/>
 
           <h4>Body Mass Index (BMI)</h4>
-          <p>
+          <span>
             Using your account information, this caluclation is done automatically.
-          </p>
-          <div className='inputLine small'>
-            <FormControl
-              style={{width: '250px'}}
-              disabled
-              type="text"
-              placeholder='Result'
-              value={this.state.bmiTextField}
-            />
-          </div>
+          </span>
+          <br /><br />
+          <span className='exerciseResult'>
+              BMI = {this.state.bmiTextField}
+          </span>
+          <br />
+          <span className='exerciseResult' style={{color: this.state.bmiResultColor}}>
+              You are {this.state.bmiResult}
+          </span>
 
         </section>
       )

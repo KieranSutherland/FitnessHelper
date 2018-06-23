@@ -34,11 +34,6 @@
 
 .link.dropdown.signOut {
   padding-bottom: 5px;
-  cursor: pointer;
-}
-
-.link.dropdown.signOut:hover {
-  cursor: pointer;
 }
 
 .link.header:visited {

@@ -72,11 +72,11 @@ export default class NaviBar extends Component {
                   </MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.4} componentClass='span'>
-                    <a
+                    <NavLink
                       className='link dropdown signOut'
-                      // On click, if user is logged in then sign out, but if user isn't logged in then direct to login page
-                      onClick={() => {(this.state.signInOut === 'Sign out') ? firebase.auth().signOut() : this.props.history.push('/login')}}>
-                      {this.state.signInOut}</a>
+                      to='/login'
+                      onClick={() => {if(this.state.signInOut === 'Sign out') firebase.auth().signOut()}}>
+                      {this.state.signInOut}</NavLink>
                   </MenuItem>
                 </NavDropdown>
               </Nav>

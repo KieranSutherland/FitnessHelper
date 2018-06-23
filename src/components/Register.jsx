@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormControl} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import InputLines from './InputLines';
 import './css/RegisterLogin.css';
 
@@ -8,12 +8,7 @@ export default class Register extends Component {
   constructor(){
     super();
     this.state = {
-      gainColor: 'white',
-      loseColor: 'white',
-      alertStyle : 'hidden',
-      alert: {
-        message: ''
-      }
+
     }
 
     }
@@ -47,7 +42,7 @@ export default class Register extends Component {
             dob=''
             height=''
             weight=''
-            footer={<div><Link to={'/login'}>Already a member? Log in here</Link><br /><br /></div>}
+            footer={<div><NavLink to={'/login'}>Already a member? Log in here</NavLink><br /><br /></div>}
             history={this.props.history}
           />
 

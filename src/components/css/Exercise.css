@@ -13,3 +13,7 @@
 a:hover {
   cursor: pointer;
 }
+
+.exerciseResult {
+  font-size: 18px;
+}

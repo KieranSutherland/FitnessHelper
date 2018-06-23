@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Tabs, Tab, Modal, Button } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import '../css/Exercise.css';
 import ExerciseCalculators from './ExerciseCalculators';
 import DeadliftWorkout from './workouts/DeadliftWorkout';
 import BenchWorkout from './workouts/BenchWorkout';
+import GainTutorials from './GainTutorials';
 
 export default class ExerciseGain extends Component {
   constructor(){
@@ -78,43 +79,7 @@ export default class ExerciseGain extends Component {
 
           <hr />
 
-          <h3>Tutorials</h3>
-          <div className='tutorials-container'>
-            <p><a onClick={ () => this.setState({
-              show: true,
-              modalTitle: 'Squat',
-              modalMessage: 'Stand with your feet slightly wider than hip-width apart, back straight, shoulders down, toes pointed slightly out. ' +
-              'Keeping your back straight, lower your body down and back as if you are sitting down into a chair, until your thighs are parallel to ' +
-              'the ground (or as close to parallel as possible).  Make sure your knees do not pass over your toes, and keeps your abs tightly ' +
-              'activated to ensure a straight spine.  Rise back up slowly. Repeat for each rep.'}) }>Squat</a></p>
-              <p><a onClick={ () => this.setState({
-                show: true,
-                modalTitle: 'Bench press',
-                modalMessage: 'Lie on your back with your feet flat on the floor. If your feet don’t reach the floor, use a stable board to accommodate ' +
-                'size. Grasp the barbell with a wider than shoulder-width grip, wrapping thumbs around the bar. Hold the barbell at arm’s length above ' +
-                'your upper-chest area. Slowly lower the barbell to the middle of your chest. In the bottom position the forearms should be perpendicular ' +
-                'to the floor. Pause briefly, then press the barbell to the starting position. During the movement, the upper arms should be about 45 to ' +
-                '60 degrees from the torso and the hips should remain on the bench.'}) }>Bench press</a></p>
-            <p><a>Barbell Row</a></p>
-            <p><a>Overhead Press</a></p>
-            <p><a>Deadlift</a></p>
-            <p><a>Chin-up</a></p>
-            <p><a>Knee Raise</a></p>
-            <p><a>Dips</a></p>
-            <p><a>Plank</a></p>
-          </div>
-
-          <Modal show={this.state.show} onHide={ () => this.setState({ show: false }) }>
-            <Modal.Header closeButton>
-              <Modal.Title><strong style={{color: '#00C853'}}>{this.state.modalTitle}</strong></Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h4 style={{padding: '0px 0px 0px 15px'}}>{this.state.modalMessage}</h4>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => this.setState({ show: false })}>Close</Button>
-            </Modal.Footer>
-          </Modal>
+          <GainTutorials />
 
           <hr />
 

@@ -17,7 +17,6 @@ export default class ResetDay extends Component {
     }
 
       resetDayClicked() {
-
         //Push day to database
         if(firebase.auth()) {
           let today = new Date();

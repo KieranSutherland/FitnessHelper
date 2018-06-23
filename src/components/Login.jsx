@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { firebase } from '../firebase';
 import AlertPopup from './AlertPopup';
 import './css/RegisterLogin.css';
@@ -73,6 +73,7 @@ export default class Login extends Component {
             <FormControl
               type="text"
               placeholder="Email"
+              value={this.state.email} // To match value of forgotPassword Modal if changed
               onKeyPress={e => {if(e.key === 'Enter') {this.submitClicked()}}} //Login if Enter key pressed
               onChange={ e => this.setState({ email : e.target.value }) }
             />
@@ -98,7 +99,7 @@ export default class Login extends Component {
               Login
             </Button>
           </div>
-          <div><Link to='/register'>Not a member? Register here</Link></div>
+          <div><NavLink to='/register'>Not a member? Register here</NavLink></div>
 
           <br /><br />
 

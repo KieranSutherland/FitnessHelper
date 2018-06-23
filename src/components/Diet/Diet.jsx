@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { firebase } from '../../firebase';
+import { Button } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import Loading from '../Loading';
 import AddFood from './AddFood';
 import Progress from './Progress';
@@ -110,8 +112,13 @@ export default class Diet extends Component {
             calories={this.state.calories}
             caloriesGoal={this.state.caloriesGoal}
             progress={this.state.progress}
-            historyPush={() => this.props.history.push('/calorie_history')}
           />
+
+          <hr />
+
+          <NavLink to={'/calorie_history'}>
+            <Button className='submitButton calHistoryBtn'>Calorie History</Button>
+          </NavLink>
 
           <hr />
 

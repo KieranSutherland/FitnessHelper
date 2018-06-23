@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ProgressBar, Button } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { ProgressBar } from 'react-bootstrap';
 import '../css/Diet.css';
 
 export default class Progress extends Component {
@@ -8,7 +7,7 @@ export default class Progress extends Component {
     super();
 
     this.state = {
-      progress: 0,
+
     }
 
     }
@@ -28,12 +27,6 @@ export default class Progress extends Component {
           </div>
 
           <ProgressBar className='progressBar' now={this.props.progress} label={`${this.props.progress}%`} />
-
-
-            <NavLink to={'/calorie_history'}>
-              <Button className='submitButton calHistoryBtn'>Go to Calorie History</Button>
-            </NavLink>
-
 
         </section>
       )
